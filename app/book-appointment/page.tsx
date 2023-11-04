@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 "use client"
 import InputLink from '@/app/components/Input/InputLink'
 import { Col, Form, Row } from 'antd';
 import React, { Fragment } from 'react'
 import { useForm } from 'react-hook-form'
+=======
+'use client'
+import React, { useState } from 'react';
+import BookingSteps from '@/components/BookingSteps';
+
+>>>>>>> bf926988af8dbd572e16d5cc8dd2c3ac7463c807
 
 const AppointmentForm = () => {
   const {
@@ -16,6 +23,7 @@ const AppointmentForm = () => {
 
   const [form] = Form.useForm();
   return (
+<<<<<<< HEAD
     <div className="max-w-7xl  mx-auto">
       <div>
 
@@ -57,6 +65,12 @@ const AppointmentForm = () => {
           size="large">
         </InputLink>
       </div>
+=======
+    <div className="bg-white h-[100vh] p-5">
+      <BookingSteps>
+        
+      </BookingSteps>
+>>>>>>> bf926988af8dbd572e16d5cc8dd2c3ac7463c807
     </div>
   )
 }
