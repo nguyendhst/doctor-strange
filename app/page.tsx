@@ -5,7 +5,7 @@ import ConnectSupabaseSteps from '@/components/ConnectSupabaseSteps'
 import SignUpUserSteps from '@/components/SignUpUserSteps'
 import Header from '@/components/Header'
 import { cookies } from 'next/headers'
-import AppointmentDetail from '@/components/Appointment'
+import AppointmentDetail from '@/components/AppointmentDetail'
 
 export default async function Index() {
   const cookieStore = cookies()
