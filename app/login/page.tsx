@@ -3,8 +3,8 @@ import Messages from './messages'
 
 export default function Login() {
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <Link
+    <div className="flex flex-col justify-center items-center w-full px-8 sm:max-w-md gap-2 bg-white mt-8 rounded-lg">
+      {/* <Link
         href="/"
         className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
       >
@@ -23,38 +23,48 @@ export default function Login() {
           <polyline points="15 18 9 12 15 6" />
         </svg>{' '}
         Back
-      </Link>
+      </Link> */}
 
       <form
-        className="flex-1 flex flex-col w-full justify-center gap-2"
+        className="flex flex-col w-full mt-4 justify-center gap-4 text-foreground"
         action="/auth/sign-in"
         method="post"
       >
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 text-black border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
+        <div className='flex flex-col mb-8'>
+        <span className='text-xl text-blue-500 font-bold'>Welcome back</span>
+        <p className='text-sm text-neutral-400'>Enter username & password to login</p>
+        </div>
+        
+        <div className='flex-1 flex flex-col w-full justify-center gap-1 text-foreground'>
+          <label className="text-md text-black" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="border-b-2 outline-0"
+            name="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div className='flex-1 flex flex-col w-full justify-center gap-1 text-foreground'>
+          <label className="text-md text-black" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="border-b-2 outline-0"
+            type="password"
+            name="password"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+        <button className="bg-blue-500 text-white rounded-md px-4 py-2 text-foreground text-lg font-bold">
           Sign In
         </button>
         <button
           formAction="/auth/sign-up"
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border-none px-4 text-foreground mb-4 text-neutral-600"
         >
           Sign Up
         </button>

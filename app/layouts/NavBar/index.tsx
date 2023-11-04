@@ -35,7 +35,7 @@ const NavBar: React.FC<TNavBar> = ({ children }) => {
 
       </div>
 
-      <div>{children}</div>
+      <div className="w-full flex justify-center items-center">{children}</div>
     </Fragment>
   )
 }
