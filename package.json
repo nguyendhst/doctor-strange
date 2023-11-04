@@ -4,19 +4,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-	"init": "npx supabase init",
-	"migration:new" : "npx supabase migration new",
-	"migration:up" : "npx supabase migration up",
-	"migration:push" : "npx supabase db push"
+    "init": "npx supabase init",
+    "migration:new": "npx supabase migration new",
+    "migration:up": "npx supabase migration up",
+    "migration:push": "npx supabase db push"
   },
   "dependencies": {
     "@supabase/ssr": "latest",
-<<<<<<< HEAD
     "@supabase/supabase-js": "latest",
     "antd": "^5.5.1",
-=======
-    "@supabase/supabase-js": "^2.38.4",
->>>>>>> 6897f0bcd183171e6496d096f8e09937c131ffb2
     "autoprefixer": "10.4.15",
     "classnames": "^2.3.2",
     "next": "^14.0.1",
