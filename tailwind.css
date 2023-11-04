@@ -78,3 +78,7 @@
     transform: translateY(0);
   }
 }
+
+.bg-white.h-fit.p-5.w-full{
+  border-radius: 12px;
+}
