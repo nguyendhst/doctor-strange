@@ -27,27 +27,21 @@ const AppointmentForm = () => {
                   placement="top"
                   control={control}
                   name="name"
-                  size="large">
-
-                </InputLink>
+                  size="large"/>
               </Col>
               <Col span={6}>
                 <InputLink placeholder="Giới tính"
                   placement="top"
                   control={control}
                   name="gender"
-                  size="large">
-
-                </InputLink>
+                  size="large"/>
               </Col>
               <Col span={6}>
                 <InputLink placeholder="Số điện thoại"
                   placement="top"
                   control={control}
                   name="phone"
-                  size="large">
-
-                </InputLink>
+                  size="large"/>
               </Col>
             </Row>
             <Row gutter={32}>
@@ -56,8 +50,7 @@ const AppointmentForm = () => {
                   placement="top"
                   control={control}
                   name="birthday"
-                  size="large">
-                </InputLink>
+                  size="large"/>
               </Col>
             </Row>
           </div>
