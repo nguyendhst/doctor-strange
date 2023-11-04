@@ -2,8 +2,8 @@ import { Input } from 'antd';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
 import { Controller } from 'react-hook-form';
+import { TPropsFormInput } from './InputLink';
 
-import ValidateError from '../ValidateError';
 
 const InputText: React.FC<TPropsFormInput> = ({
   name,
@@ -31,7 +31,6 @@ const InputText: React.FC<TPropsFormInput> = ({
               prefix={prefix}
               className={classNames(error ? `error` : `focus hover`, className)}
             />
-            <ValidateError error={error} />
           </Fragment>
         );
       }}
