@@ -7,8 +7,7 @@ import { Control, Controller, FieldValue, MultipleFieldErrors, UseFormClearError
 
 // import ValidateError from '@/components/ValidateError';
 type TPropsFormInput = {
-  minimumYear?: number;
-  control?: Control<FieldValue>;
+  control?: Control  ;
   name: string;
   type?: string;
   size?: SizeType;
