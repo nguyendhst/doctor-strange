@@ -17,6 +17,27 @@
       @apply flex justify-center items-center;
     }
   }
+
+  .ant-form-vertical-custom {
+    @apply flex flex-col;
+
+    .ant-form-item {
+      @apply m-0 py-1;
+      .ant-form-item-label {
+        @apply pb-1 text-body-2-regular text-neutral-7;
+        >label {
+          @apply text-body-2-regular text-neutral-7;
+        }
+      }
+      .ant-col {
+        min-height: initial;
+
+        .ant-input {
+          @apply px-[10px] py-[5px] w-full h-8 align-middle text-body-2-regular;
+        }
+      }
+    }
+  }
 }
 
 @layer base {
