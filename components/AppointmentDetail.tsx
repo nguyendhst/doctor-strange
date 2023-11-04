@@ -16,16 +16,20 @@ type AppointmentType = {
   schedule: string;
 };
 
+function formatTimestamp(t: string) {
+  const time = new Date(t);
+  return time.toLocaleString("vi-VN", {
+    dateStyle: "full",
+    timeStyle: "short"
+  }).replace("lúc" || "when", "");
+}
+
 export default function AppointmentDetail({
   appointmentId = "<null>",
   createdAt = "<null>",
   patientName = "<null>",
   socialId = "<null>",
-  symptoms = [
-    "<null>",
-    "<null>",
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi soluta distinctio cum pariatur hic cupiditate, laborum sapiente accusamus ut assumenda, maxime vel laboriosam ipsum? Maiores ratione quasi officia blanditiis voluptatibus.",
-  ],
+  symptoms = ["<null>"],
   doctorName = "<null>",
   departmentName = "<null>",
   schedule = "<null>",
@@ -59,7 +63,7 @@ export default function AppointmentDetail({
       <p className="">Appointment Id: {appointmentId}</p>
       <p className="">Doctor: {doctorName}</p>
       <p className="">Department: {departmentName}</p>
-      <p className="">Schedule: {schedule}</p>
+      <p className="">Schedule: <span className=" text-blue-600 font-semibold">{formatTimestamp(schedule)}</span></p>
     </div>
   );
 }

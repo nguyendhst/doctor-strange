@@ -18,6 +18,10 @@ const items: MenuProps['items'] = [
     key: 'SubMenu',
   },
   {
+    label: <Link href={'/appointments'}>My Appointment</Link>,
+    key: 'appointments',
+  },
+  {
     label: <Link href={'/login'}>Login</Link>,
     key: 'alipay',
   },
