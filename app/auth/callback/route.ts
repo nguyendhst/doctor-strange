@@ -19,7 +19,7 @@ export async function GET(request: Request) {
         } = await supabase.auth.getUser();
 
         if (user) {
-            const { data, error } = await supabase.from("users").insert([
+            await supabase.from("users").insert([
                 {
                     contact: user.email,
                 },
