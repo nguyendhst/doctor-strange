@@ -1,8 +1,15 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react';
+import BookingSteps from '@/components/BookingSteps';
+
 
 const AppointmentForm = () => {
   return (
-    <div>AppointmentForm</div>
+    <div className="bg-white h-[100vh] p-5">
+      <BookingSteps>
+        
+      </BookingSteps>
+    </div>
   )
 }
 
