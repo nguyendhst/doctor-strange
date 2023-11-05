@@ -6,9 +6,8 @@ import React, { Fragment } from 'react';
 import { Control, Controller, FieldValue, MultipleFieldErrors, UseFormClearErrors, UseFormRegister, UseFormSetError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
 // import ValidateError from '@/components/ValidateError';
-type TPropsFormInput = {
-  minimumYear?: number;
-  control?: Control<FieldValue>;
+export type TPropsFormInput = {
+  control?: Control  ;
   name: string;
   type?: string;
   size?: SizeType;

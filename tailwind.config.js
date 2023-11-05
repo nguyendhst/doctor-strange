@@ -10,8 +10,8 @@ module.exports = {
         pacifico: ['Pacifico'],
       },
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: '#F9F9F9',
+        foreground: 'white',
         btn: {
           background: 'hsl(var(--btn-background))',
           'background-hover': 'hsl(var(--btn-background-hover))',
