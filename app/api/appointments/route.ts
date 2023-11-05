@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function GET() {
+export async function GET(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   try {

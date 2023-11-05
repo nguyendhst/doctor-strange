@@ -18,7 +18,7 @@ const items: MenuProps['items'] = [
     key: 'SubMenu',
   },
   {
-    label: <Link href={'/appointments'}>My Appointment</Link>,
+    label: <Link href={'/appointments'}>My Appointments</Link>,
     key: 'appointments',
   },
   {
