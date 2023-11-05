@@ -1,30 +1,9 @@
+"use client"
 import { Input } from 'antd';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
-import { Control, Controller, MultipleFieldErrors } from 'react-hook-form';
-import { TooltipPlacement } from 'antd/es/tooltip';
-import { SizeType } from 'antd/es/config-provider/SizeContext';
-
-export type TPropsFormInput = {
-  control?: Control;
-  name: string;
-  type?: string;
-  size?: SizeType;
-  error?: MultipleFieldErrors;
-  placeholder?: string;
-  prefix?: JSX.Element;
-  className?: string;
-  format?: string;
-  values?: [];
-  autoSize?: boolean | { minRows: number; maxRows: number };
-  label?: string;
-  children?: JSX.Element;
-  required?: boolean;
-  placement?: TooltipPlacement;
-  disabled?: boolean;
-  rows?: number;
-};
-
+import { Controller } from 'react-hook-form';
+import ValidateError from '@/components/Input/ValidateError';
 
 const InputText: React.FC<TPropsFormInput> = ({
   name,
@@ -32,7 +11,6 @@ const InputText: React.FC<TPropsFormInput> = ({
   type,
   size,
   placeholder,
-  prefix,
   className,
   disabled,
 }) => {
@@ -49,9 +27,10 @@ const InputText: React.FC<TPropsFormInput> = ({
               type={type}
               size={size}
               placeholder={placeholder}
-              prefix={prefix}
+              status={error ? 'error' : ''}
               className={classNames(error ? `error` : `focus hover`, className)}
             />
+            <ValidateError error={error} />
           </Fragment>
         );
       }}

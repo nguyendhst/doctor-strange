@@ -5,24 +5,19 @@ import ConnectSupabaseSteps from '@/components/ConnectSupabaseSteps'
 import SignUpUserSteps from '@/components/SignUpUserSteps'
 import Header from '@/components/Header'
 import { cookies } from 'next/headers'
+import { Metadata } from 'next'
 
-export default async function Index() {
-  const cookieStore = cookies()
-
-  const canInitSupabaseClient = () => {
-    try {
-      createClient(cookieStore)
-      return true
-    } catch (e) {
-      return false
-    }
-  }
-
-  const isSupabaseConnected = canInitSupabaseClient()
+export default function Index() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center ">
 
     </div>
   )
+}
+
+
+export const metadata: Metadata = {
+  title: 'Next.js and Supabase Starter Kit',
+  description: 'The fastest way to build apps with Next.js and Supabase',
 }

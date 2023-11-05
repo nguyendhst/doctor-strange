@@ -1,9 +1,9 @@
+"use client"
+import ValidateError from '@/components/Input/ValidateError';
 import { Input } from 'antd';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
 import { Controller } from 'react-hook-form';
-
-import ValidateError from '@/components/ValidateError';
 
 const { TextArea } = Input;
 
@@ -27,10 +27,11 @@ const AntdTextArea: React.FC<TPropsFormInput> = ({
             rows={rows}
             placeholder={placeholder}
             {...field}
-            {...settings}
             autoSize={autoSize}
             size={size}
+            status={error ? 'error' : ''}
             className={classNames(error ? `error` : `focus hover`, className)}
+            {...settings}
           />
           <ValidateError error={error} />
         </Fragment>
