@@ -4,15 +4,15 @@ import React, { ReactNode, useState } from 'react'
 const steps = [
     {
     title: 'Step 1',
-    description: 'Thông tin cá nhân',
+    description: 'Personal Information',
     },
     {
     title: 'Step 2',
-    description: 'Triệu chứng',
+    description: 'Your Symptom',
     },
     {
     title: 'Step 3',
-    description: 'Hẹn lịch khám',
+    description: 'Booking',
     },
 ];
   
@@ -40,7 +40,7 @@ const BookingSteps: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     return (
         <>
-            <Steps current={current} items={items}/>
+            <Steps current={current} items={items} labelPlacement="vertical"/>
             <div>{children}</div>
             <div style={{ marginTop: 24 }}>
                 {current < steps.length - 1 && (
