@@ -10,9 +10,9 @@ export type TAppointmentsDetailsProps = {
 }
 
 export default async function getAppointmentsDetails({email}: TAppointmentsDetailsProps): Promise<TResponseMeta<TAppointmentsDetails[]>> {
-  console.log("===", email)
   return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
-    method: 'GET',
+    method: 'POST',
+    // cache: "no-cache",
     data: {
       email
     }
