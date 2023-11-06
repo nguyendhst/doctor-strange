@@ -5,7 +5,8 @@ import { cookies } from "next/headers";
 export async function GET(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-
+  const reqbody = await request.json()
+  console.log("-----", reqbody)
   try {
     const { data, error } = await supabase
     .from('recommendations')

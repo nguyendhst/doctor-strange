@@ -1,0 +1,1 @@
+export const API_QUERY_APPOINTMENTS_DETAILS = '/api/appointments';
