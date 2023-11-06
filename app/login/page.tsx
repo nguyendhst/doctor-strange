@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import Messages from './messages'
+import Link from "next/link";
+import Messages from "./messages";
 
 export default function Login() {
   return (
@@ -30,12 +30,14 @@ export default function Login() {
         action="/auth/sign-in"
         method="post"
       >
-        <div className='flex flex-col mb-8'>
-        <span className='text-xl text-blue-500 font-bold'>Welcome back</span>
-        <p className='text-sm text-neutral-400'>Enter username & password to login</p>
+        <div className="flex flex-col mb-8">
+          <span className="text-xl text-blue-500 font-bold">Welcome back</span>
+          <p className="text-sm text-neutral-400">
+            Enter username & password to login
+          </p>
         </div>
-        
-        <div className='flex-1 flex flex-col w-full justify-center gap-1 text-foreground'>
+
+        <div className="flex-1 flex flex-col w-full justify-center gap-1 text-foreground">
           <label className="text-md text-black" htmlFor="email">
             Email
           </label>
@@ -47,7 +49,7 @@ export default function Login() {
           />
         </div>
 
-        <div className='flex-1 flex flex-col w-full justify-center gap-1 text-foreground'>
+        <div className="flex-1 flex flex-col w-full justify-center gap-1 text-foreground">
           <label className="text-md text-black" htmlFor="password">
             Password
           </label>
@@ -64,12 +66,12 @@ export default function Login() {
         </button>
         <button
           formAction="/auth/sign-up"
-          className="border-none px-4 text-foreground mb-4 text-neutral-600"
+          className="border-none px-4 text-foreground mb-4 text-neutral-800"
         >
           Sign Up
         </button>
         <Messages />
       </form>
     </div>
-  )
+  );
 }
