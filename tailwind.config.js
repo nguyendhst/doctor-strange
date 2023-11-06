@@ -11,7 +11,7 @@ module.exports = {
       },
       colors: {
         background: '#F9F9F9',
-        foreground: 'white',
+        foreground: 'black',
         btn: {
           background: 'hsl(var(--btn-background))',
           'background-hover': 'hsl(var(--btn-background-hover))',

@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 export async function GET(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
+
   try {
     const { data, error } = await supabase
     .from('recommendations')
@@ -15,6 +16,7 @@ export async function GET(request: Request) {
         symptoms (symptom),
         recommendation_time
     `)
+
     return NextResponse.json({
         message: "Successful",
         data: data,
