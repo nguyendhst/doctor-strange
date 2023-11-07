@@ -24,10 +24,18 @@ const useAppointmentFormResolver = (current: number) => {
 
   const AppointmentFormValidationSchemaStep2 = 
     yup.object().shape({
-      [FORM_KEY.SYMP]: yup.string().notRequired(),
       [FORM_KEY.NOTE]: yup.string().required('Please provide some information'),
     })
   ;
+
+  const AppointmentFormValidationSchemaStep3 = 
+  yup.object().shape({
+    [FORM_KEY.SYMP]: yup.string().required('Please choose a department!'),
+    [FORM_KEY.DOCTOR]: yup.string().required('Please choose a Doctor to help you!'),
+    [FORM_KEY.BOOKING_DATE]: yup.string().required('Please choose a appropriate day!'),
+    [FORM_KEY.SHIFT]: yup.string().required('Please choose a time in day that you prefer!'),
+  })
+;
 
   const pick = useCallback(
     () => {
@@ -38,6 +46,9 @@ const useAppointmentFormResolver = (current: number) => {
         case 1:
           return AppointmentFormValidationSchemaStep2;
 
+        case 2:
+          return AppointmentFormValidationSchemaStep3;
+          
         default:
           return AppointmentFormValidationSchemaStep1;
       }

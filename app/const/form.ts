@@ -4,8 +4,13 @@ export enum FORM_KEY {
   BIRTH = "birthday",
   PHONE = "phone",
   EMAIL = "email",
+
+  NOTE = "notes",
+  
   SYMP = "symptoms",
-  NOTE = "notes"
+  DOCTOR = "doctor",
+  BOOKING_DATE = "date",
+  SHIFT = "shift",
 };
 
 export const GENDER_OPTIONS = [

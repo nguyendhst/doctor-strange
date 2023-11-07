@@ -1,6 +1,7 @@
 "use client"
 import ValidateError from '@/components/Input/ValidateError';
 import { DatePicker } from 'antd';
+import { DatePickerType, RangePickerProps } from 'antd/es/date-picker';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React, { Fragment } from 'react';
@@ -8,6 +9,7 @@ import { Controller } from 'react-hook-form';
 
 export type TPropsDatePicker = TPropsFormInput & {
   minimumYear?: number,
+  disabledDate?: RangePickerProps['disabledDate'],
 }
 
 const AntdDatePicker: React.FC<TPropsDatePicker> = ({
@@ -17,6 +19,7 @@ const AntdDatePicker: React.FC<TPropsDatePicker> = ({
   className,
   size,
   minimumYear,
+  disabledDate,
 }) => {
   return (
     <Controller
@@ -33,6 +36,7 @@ const AntdDatePicker: React.FC<TPropsDatePicker> = ({
             onChange={(date, dateString) => {
               field.onChange(date ? date.valueOf() : null);
             }}
+            disabledDate={disabledDate}
             status={error ? 'error' : ''}
           />
           <ValidateError error={error} />
