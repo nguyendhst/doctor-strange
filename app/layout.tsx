@@ -1,25 +1,27 @@
-import NavBar from '@/app/layouts/NavBar'
+"use client"
+import NavBar from '@/layouts/NavBar';
 import './globals.css'
-
-export const metadata = {
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
-}
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const queryClient = new QueryClient();
   return (
     <html lang="en">
       <body className="bg-background text-foreground w-full">
         <main >
-          <NavBar>
-            {children}
-          </NavBar>
+          <QueryClientProvider client={queryClient}>
+            <NavBar>
+              {children}
+            </NavBar>
+          </QueryClientProvider>
         </main>
       </body>
     </html>
   )
 }
+
+
