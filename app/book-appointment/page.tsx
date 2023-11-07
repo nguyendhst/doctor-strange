@@ -12,8 +12,8 @@ import Button from '@/components/Button';
 const AppointmentForm = () => {
 
   const { current, setCurrent } = useCounter();
-  const { form, currentFormSchema } = useAppointmentFormResolver(current);
-  const { control, dirtyFields, errors, isDirty, isValid, getValues, handleSubmit } = useAppointmentForm(currentFormSchema)
+  const { form, FormSchema } = useAppointmentFormResolver();
+  const { control, dirtyFields, errors, isDirty, isValid, getValues, handleSubmit, trigger} = useAppointmentForm(FormSchema)
 
   const {
     steps,
@@ -22,7 +22,7 @@ const AppointmentForm = () => {
     handleNext,
     handlePrevious,
     isLastStep,
-  } = useSteps(isValid, current, setCurrent);
+  } = useSteps(isValid, current, setCurrent, trigger);
 
   return (
     <div className="max-w-7xl bg-white min-h-fit max-h-[720px]  p-6 w-full rounded-xl">
@@ -37,11 +37,11 @@ const AppointmentForm = () => {
         rightContent={
           isLastStep
             ?
-            <Button type="default" >
+            <Button type="default" onClick={handleNext}>
               Done
             </Button>
             :
-            <Button type="default" onClick={handleSubmit(handleNext)} disabled={nextStepDisabled}>
+            <Button type="default" onClick={handleNext}>
               Next
             </Button>
         }
