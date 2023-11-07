@@ -19,6 +19,10 @@ const items: MenuProps['items'] = [
     label: <Link href={'/book-appointment'}>Book Appointment</Link>,
     key: 'book-appointment',
   },
+  {
+    label: <Link href={'/appointments'}>My Appointments</Link>,
+    key: 'appointments'
+  },
 ];
 
 const NavBar: React.FC<TNavBar> = ({ children }) => {
