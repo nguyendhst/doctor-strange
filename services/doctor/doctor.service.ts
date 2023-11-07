@@ -40,7 +40,8 @@ export async function getDoctorById(client: any, id: number): Promise<ServiceRes
   if(!doctors){
     return new ServiceResponseDto(404, null)
   }
-  throw new ServiceResponseDto(200, doctors)
+
+  return new ServiceResponseDto(200, doctors)
 }
 
 export async function getDoctorBySymptom(client: any, id: number): Promise<ServiceResponseDto> {
@@ -53,6 +54,8 @@ export async function getDoctorBySymptom(client: any, id: number): Promise<Servi
     )
   `)
   .eq('symptom_specialization.symptom_id', id)
+
+  console.log(doctors);
 
   const returnData = doctors.map((doctor: any)=>{
     const { symptom_specialization, ...newDoctorData } = doctor;
