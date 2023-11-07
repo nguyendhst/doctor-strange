@@ -7,6 +7,7 @@ import { useCounter } from '@/app/book-appointment/hooks/useCounter';
 import { useAppointmentForm } from '@/app/book-appointment/hooks/useAppointmentForm';
 import FormSteps from '@/components/FormSteps';
 import Button from '@/components/Button';
+import { queryDoctorByID } from '../services/doctor/hooks';
 
 
 const AppointmentForm = () => {
@@ -24,6 +25,8 @@ const AppointmentForm = () => {
     isLastStep,
   } = useSteps(isValid, current, setCurrent, trigger);
 
+  
+  const {data, isLoading} = queryDoctorByID(1)
   return (
     <div className="max-w-7xl bg-white min-h-fit max-h-[720px]  p-6 w-full rounded-xl">
       <BookingSteps
