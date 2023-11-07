@@ -20,9 +20,11 @@ export default function Page() {
     data
   } = queryUser();
 
-  const {data: res, isError, isLoading} = queryAppointmentsDetails(
+  const {data: res, isError, isLoading, error} = queryAppointmentsDetails(
     data?.data?.email
   );
+
+  console.log(error)
 
   return (
     <div className="md:w-1/2 w-full flex flex-col items-center gap-y-5 p-5 text-slate-700">

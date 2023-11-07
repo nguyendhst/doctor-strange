@@ -2,11 +2,11 @@ import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function GET(request: Request) {
+export async function POST(req: NextRequest) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const reqbody = await request.json()
-  console.log("-----", reqbody)
+  const reqbody = await req.json()
+  console.info("-----", reqbody, req.method)
   try {
     const { data, error } = await supabase
     .from('recommendations')
