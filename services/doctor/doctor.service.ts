@@ -45,15 +45,17 @@ export async function getDoctorById(client: any, id: number): Promise<ServiceRes
 }
 
 export async function getDoctorBySymptom(client: any, id: number): Promise<ServiceResponseDto> {
+  let { data: doctorIds } = await client
+    .from('symptom_specialization')
+    .select('doctor_id')
+    .eq('symptom_id', id);
+
+  doctorIds = doctorIds.map((doctor:any)=>doctor.doctor_id);
+
   const { data: doctors, error } = await client
-  .from('doctors')
-  .select(`
-    *,
-    symptom_specialization (
-      symptom_id
-    )
-  `)
-  .eq('symptom_specialization.symptom_id', id)
+    .from('doctors')
+    .select('*')
+    .in('id', doctorIds);
 
   console.log(doctors);
 
