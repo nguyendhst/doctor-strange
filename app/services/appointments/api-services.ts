@@ -12,6 +12,7 @@ export type TAppointmentsDetailsProps = {
 export default async function getAppointmentsDetails({email}: TAppointmentsDetailsProps): Promise<TResponseMeta<TAppointmentsDetails[]>> {
   return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
     method: 'POST',
+    // cache: "no-cache",
     data: {
       email
     }

@@ -2,21 +2,23 @@ import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const reqbody = await req.json()
-  console.info("-----", reqbody, req.method)
+  // Error!
+  const reqbody = await request.json()
+  console.log(reqbody)
   try {
     const { data, error } = await supabase
     .from('recommendations')
     .select(`
         id,
-        users (id, name, social_id),
+        users (id, name, social_id, contact),
         doctors (id, name, department),
         symptoms (symptom),
         recommendation_time
     `)
+    .eq("contact", reqbody.email)
 
     return NextResponse.json({
         message: "Successful",
