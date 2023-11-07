@@ -71,8 +71,8 @@ const BasicInfo: React.FC<TFormControl> = ({ control, error }) => {
             </Item>
           </Col>
           <Col span={24}>
-            <Item label="Your Email" >
-              <InputLink placeholder="abc@gmail.com"
+            <Item label="Your Email">
+              <InputText placeholder="abc@gmail.com"
                 disabled
                 placement="top"
                 control={control}
