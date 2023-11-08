@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         pacifico: ['Permanent Marker'],
+        righteous: ['Righteous'],
       },
       colors: {
         background: '#F9F9F9',

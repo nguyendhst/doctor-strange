@@ -13,8 +13,8 @@ import { queryDoctorByID } from '../services/doctor/hooks';
 const AppointmentForm = () => {
 
   const { current, setCurrent } = useCounter();
-  const { form, currentFormSchema } = useAppointmentFormResolver(current);
-  const { control, dirtyFields, errors, isDirty, isValid, getValues, handleSubmit } = useAppointmentForm(currentFormSchema)
+  const { form, FormSchema } = useAppointmentFormResolver();
+  const { control, dirtyFields, errors, isDirty, isValid, getValues, handleSubmit, trigger} = useAppointmentForm(FormSchema)
 
   const {
     steps,
@@ -23,7 +23,7 @@ const AppointmentForm = () => {
     handleNext,
     handlePrevious,
     isLastStep,
-  } = useSteps(isValid, current, setCurrent);
+  } = useSteps(isValid, current, setCurrent, trigger);
 
   
   const {data, isLoading} = queryDoctorByID(1)
@@ -40,11 +40,11 @@ const AppointmentForm = () => {
         rightContent={
           isLastStep
             ?
-            <Button type="default" >
+            <Button type="default" onClick={handleNext}>
               Done
             </Button>
             :
-            <Button type="default" onClick={handleSubmit(handleNext)} disabled={nextStepDisabled}>
+            <Button type="default" onClick={handleNext}>
               Next
             </Button>
         }
