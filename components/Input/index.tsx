@@ -1,9 +1,9 @@
+"use client"
 import { Input } from 'antd';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
 import { Controller } from 'react-hook-form';
-import { TPropsFormInput } from './InputLink';
-
+import ValidateError from '@/components/Input/ValidateError';
 
 const InputText: React.FC<TPropsFormInput> = ({
   name,
@@ -11,7 +11,6 @@ const InputText: React.FC<TPropsFormInput> = ({
   type,
   size,
   placeholder,
-  prefix,
   className,
   disabled,
 }) => {
@@ -28,9 +27,10 @@ const InputText: React.FC<TPropsFormInput> = ({
               type={type}
               size={size}
               placeholder={placeholder}
-              prefix={prefix}
+              status={error ? 'error' : ''}
               className={classNames(error ? `error` : `focus hover`, className)}
             />
+            <ValidateError error={error} />
           </Fragment>
         );
       }}
