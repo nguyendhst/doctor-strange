@@ -21,8 +21,8 @@ export async function getallDoctor(client: any): Promise<ServiceResponseDto> {
     throw new Error(`Supabase query error: ${error.message}`);
   }
 
-  if (!doctors) {
-    return new ServiceResponseDto(404, null);
+  if(!doctors || doctors.length == 0){
+    return new ServiceResponseDto(404, null)
   }
 
   return new ServiceResponseDto(200, doctors);
@@ -33,11 +33,6 @@ export const getAllDepartment = async (
   textSearch: string | null,
 ): Promise<ServiceResponseDto> => {
   const { data: departments, error } = await client.from("distinct_departments").select("*").like('specialization', `%${textSearch ?? ''}%`);
-
-  if (error) {
-    throw new Error(`Supabase query error: ${error.message}`);
-  }
-
   if (!departments) {
     return new ServiceResponseDto(404, null);
   }
@@ -45,42 +40,38 @@ export const getAllDepartment = async (
   return new ServiceResponseDto(200, departments);
 };
 
-export async function getDoctorById(
-  client: any,
-  id: number
-): Promise<ServiceResponseDto> {
-  const { data: doctors, error } = await client
-    .from("doctors")
-    .select("*")
-    .eq("id", id);
+export async function getDoctorById(client: any, id: number): Promise<ServiceResponseDto> {
+  const { data: doctor, error } = await client
+  .from('doctors')
+  .select('*')
+  .eq('id', id)
+
+  console.log(doctor);
 
   if (error) {
     throw new Error(`Supabase query error: ${error.message}`);
   }
-  if (!doctors) {
-    return new ServiceResponseDto(404, null);
+  if(!doctor || doctor.length == 0){
+    return new ServiceResponseDto(404, null)
   }
 
-  return new ServiceResponseDto(200, doctors);
+  return new ServiceResponseDto(200, doctor)
 }
+
 
 export async function getDoctorBySymptom(
   client: any,
   id: number
 ): Promise<ServiceResponseDto> {
   const { data: doctors, error } = await client
-    .from("doctors")
-    .select(
-      `
-    *,
-    symptom_specialization (
-      symptom_id
-    )
-  `
-    )
-    .eq("symptom_specialization.symptom_id", id);
-
-  console.log(doctors);
+    .from('doctors')
+    .select(`
+      *,
+      symptom_specialization!inner (
+        symptom_id
+      )
+    `)
+    .eq('symptom_specialization.symptom_id', id)
 
   const returnData = doctors.map((doctor: any) => {
     const { symptom_specialization, ...newDoctorData } = doctor;
@@ -91,8 +82,8 @@ export async function getDoctorBySymptom(
     throw new Error(`Supabase query error: ${error.message}`);
   }
 
-  if (!returnData) {
-    return new ServiceResponseDto(404, null);
+  if(!returnData || returnData.length == 0){
+    return new ServiceResponseDto(404, null)
   }
 
   return new ServiceResponseDto(200, returnData);
