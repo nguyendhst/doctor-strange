@@ -21,7 +21,7 @@ export async function getallDoctor(client: any) : Promise<ServiceResponseDto>{
     throw new Error(`Supabase query error: ${error.message}`);
   }
 
-  if(!doctors){
+  if(!doctors || doctors.length == 0){
     return new ServiceResponseDto(404, null)
   }
 
@@ -29,35 +29,33 @@ export async function getallDoctor(client: any) : Promise<ServiceResponseDto>{
 }
 
 export async function getDoctorById(client: any, id: number): Promise<ServiceResponseDto> {
-  const { data: doctors, error } = await client
+  const { data: doctor, error } = await client
   .from('doctors')
   .select('*')
   .eq('id', id)
 
+  console.log(doctor);
+
   if (error) {
     throw new Error(`Supabase query error: ${error.message}`);
   }
-  if(!doctors){
+  if(!doctor || doctor.length == 0){
     return new ServiceResponseDto(404, null)
   }
 
-  return new ServiceResponseDto(200, doctors)
+  return new ServiceResponseDto(200, doctor)
 }
 
 export async function getDoctorBySymptom(client: any, id: number): Promise<ServiceResponseDto> {
-  let { data: doctorIds } = await client
-    .from('symptom_specialization')
-    .select('doctor_id')
-    .eq('symptom_id', id);
-
-  doctorIds = doctorIds.map((doctor:any)=>doctor.doctor_id);
-
   const { data: doctors, error } = await client
     .from('doctors')
-    .select('*')
-    .in('id', doctorIds);
-
-  console.log(doctors);
+    .select(`
+      *,
+      symptom_specialization!inner (
+        symptom_id
+      )
+    `)
+    .eq('symptom_specialization.symptom_id', id)
 
   const returnData = doctors.map((doctor: any)=>{
     const { symptom_specialization, ...newDoctorData } = doctor;
@@ -68,7 +66,7 @@ export async function getDoctorBySymptom(client: any, id: number): Promise<Servi
     throw new Error(`Supabase query error: ${error.message}`);
   }
 
-  if(!returnData){
+  if(!returnData || returnData.length == 0){
     return new ServiceResponseDto(404, null)
   }
 
