@@ -15,7 +15,8 @@ export const queryDoctorByID = (id: number) => {
 };
 
 export const queryUniqueDepartments = () => {
-  return useMutation([API_GET_DEPARTMENTS], (search: string) =>
-    getUniqueDepartments(search)
+  return useMutation(
+    [API_GET_DEPARTMENTS],
+    (search: string) => getUniqueDepartments(search),
   );
 };
