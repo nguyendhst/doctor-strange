@@ -8,6 +8,7 @@ import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
 import AntdRadio from '@/components/Input/Radio';
 import DoctorDetails from '@/components/DoctorDetails';
+import { useSearchDepartments } from '@/components/FormSteps/BookingDate/hooks/useSearch';
 
 const { Item } = Form;
 
@@ -46,15 +47,17 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
 
   ]
 
+  const {searchDepartments, departmentsError, loadingDepartments, departments} = useSearchDepartments();
+
   return (
     <Fragment>
       <Row gutter={24}>
 
         <Col span={24} lg={12}>
           <Col span={24}>
-            <Item label="Hospital Department Selection" required>
+            <Item label="Hospital Department Selection">
               <Controller
-                name={FORM_KEY['SYMP']}
+                name={FORM_KEY['DEP']}
                 control={control}
                 render={({ field }) => (
                   <Select
@@ -62,12 +65,12 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
                     mode="multiple"
                     size='large'
                     placeholder="Select the relevant department(s) based on your symptoms."
-                    fieldNames={{ label: FORM_KEY['SYMP'], value: 'id' }}
-                    onSearch={handleSearch}
-                    loading={isLoading}
-                    options={options?.result.data}
+                    fieldNames={{ label: FORM_KEY['DEP'], value: FORM_KEY['DEP'] }}
+                    onSearch={searchDepartments}
+                    loading={loadingDepartments}
+                    options={departments}
                     filterOption={false}
-                    notFoundContent={isLoading ? <Spin className="h-full w-full m-auto" /> : <Empty />}
+                    notFoundContent={loadingDepartments ? <Spin className="h-full w-full m-auto" /> : <Empty />}
                   />
                 )}
               />

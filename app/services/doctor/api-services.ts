@@ -1,16 +1,27 @@
-import { createClient } from '@/utils/supabase/server'
-import Link from 'next/link'
-import { cookies } from 'next/headers'
-import { User } from '@supabase/supabase-js'
-import { API_QUERY_USER } from '@/app/services/user/cache-keys'
-import request from 'umi-request';
+import request from "umi-request";
+import {
+  API_GET_DEPARTMENTS,
+  API_GET_DOCTOR_BY_ID,
+} from "@/app/services/doctor/cache-keys";
 
-export default async function getDoctorDetail(id: number): Promise<TResponseMeta<User|null>> {
-  return request<TResponseMeta<User|null>>(`/services/doctor/detail`, {
-    method: 'GET',
+export const getDoctorDetail = async (
+  id: number
+): Promise<TResponseMeta<any | null>> => {
+  return request<TResponseMeta<any | null>>(API_GET_DOCTOR_BY_ID, {
+    method: "GET",
     params: {
       id,
-    }
-  })
+    },
+  });
+};
 
-}
+export const getUniqueDepartments = async (
+  search: string
+): Promise<TResponseMeta<any | null>> => {
+  return request<TResponseMeta<any | null>>(API_GET_DEPARTMENTS, {
+    method: "GET",
+    params: {
+      search,
+    },
+  });
+};

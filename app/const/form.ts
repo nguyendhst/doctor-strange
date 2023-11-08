@@ -8,6 +8,8 @@ export enum FORM_KEY {
   NOTE = "notes",
 
   SYMP = "symptoms",
+
+  DEP = "specialization",
   DOCTOR = "doctor",
   BOOKING_DATE = "date",
   SHIFT = "shift",
