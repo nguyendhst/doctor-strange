@@ -17,8 +17,11 @@ import { queryUser } from "../services/user/hooks";
 // }
 export default function Page() {
   // const res = await getAppointmentDetail();
+
+  // Get current user
   const { data } = queryUser();
 
+  // Get user' appointments
   const {
     data: res,
     isError,
