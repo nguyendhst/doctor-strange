@@ -7,7 +7,6 @@ import AntdDatePicker from '@/components/Input/DatePicker';
 import InputLink from '@/components/Input/InputLink';
 import { Row, Col, Form } from 'antd';
 import React, { Fragment } from 'react';
-
 const { Item } = Form;
 
 const BasicInfo: React.FC<TFormControl> = ({ control, error }) => {
@@ -71,8 +70,9 @@ const BasicInfo: React.FC<TFormControl> = ({ control, error }) => {
             </Item>
           </Col>
           <Col span={24}>
-            <Item label="Your Email" >
-              <InputLink placeholder="abc@gmail.com"
+            <Item label="Your Email">
+              <InputText placeholder="abc@gmail.com"
+                disabled
                 placement="top"
                 control={control}
                 error={error}

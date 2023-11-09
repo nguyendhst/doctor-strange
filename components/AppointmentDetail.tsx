@@ -10,7 +10,6 @@ import {
   CaretDownOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import CopyClipboard from "./CopyClipboard";
 
 type AppointmentType = {
   appointmentId: string;

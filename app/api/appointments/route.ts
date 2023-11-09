@@ -7,7 +7,6 @@ export async function POST(request: Request) {
   const supabase = createClient(cookieStore);
   // Error!
   const reqbody = await request.json()
-  console.log(reqbody)
   try {
     const { data, error } = await supabase
     .from('recommendations')
@@ -20,13 +19,6 @@ export async function POST(request: Request) {
     `)
     .eq("contact", reqbody.email)
 
-    // if (data === null) {
-    //   return NextResponse.json({
-    //     message: "Successful",
-    //     data: data,
-    //     statusCode: 200
-    // });
-    // }
     return NextResponse.json({
         message: "Successful",
         data: data,
