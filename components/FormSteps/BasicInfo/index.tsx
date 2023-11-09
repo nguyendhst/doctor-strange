@@ -7,7 +7,6 @@ import AntdDatePicker from '@/components/Input/DatePicker';
 import InputLink from '@/components/Input/InputLink';
 import { Row, Col, Form } from 'antd';
 import React, { Fragment } from 'react';
-
 const { Item } = Form;
 
 const BasicInfo: React.FC<TFormControl> = ({ control, error }) => {
