@@ -1,11 +1,12 @@
 import request from "umi-request";
 import {
   API_GET_DEPARTMENTS,
+  API_GET_DOCTORS_BY_SYMPTOMS,
   API_GET_DOCTOR_BY_ID,
 } from "@/app/services/doctor/cache-keys";
 
 export const getDoctorDetail = async (
-  id: number
+  id?: number | string
 ): Promise<TResponseMeta<any | null>> => {
   return request<TResponseMeta<any | null>>(API_GET_DOCTOR_BY_ID, {
     method: "GET",
@@ -21,6 +22,19 @@ export const getUniqueDepartments = async (
   return request<TResponseMeta<any | null>>(API_GET_DEPARTMENTS, {
     method: "GET",
     params: {
+      search,
+    },
+  });
+};
+
+export const getDoctorsBySymptoms = async (
+  ids: string[] | null,
+  search: string | null,
+): Promise<TResponseMeta<any | null>> => {
+  return request<TResponseMeta<any | null>>(API_GET_DOCTORS_BY_SYMPTOMS, {
+    method: "GET",
+    params: {
+      ids,
       search,
     },
   });

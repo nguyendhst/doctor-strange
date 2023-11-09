@@ -14,8 +14,14 @@ export async function createDoctor(
   return new ServiceResponseDto(201, data);
 }
 
-export async function getallDoctor(client: any): Promise<ServiceResponseDto> {
-  const { data: doctors, error } = await client.from("doctors").select("*");
+export async function getallDoctor(
+  client: SupabaseClient<any, "public", any>,
+  textSearch?: string | null
+): Promise<ServiceResponseDto> {
+  const { data: doctors, error } = await client
+    .from("doctors")
+    .select("*")
+    .like("name", `%${textSearch ?? ''}%`);
 
   if (error) {
     throw new Error(`Supabase query error: ${error.message}`);
@@ -28,7 +34,7 @@ export async function getallDoctor(client: any): Promise<ServiceResponseDto> {
   return new ServiceResponseDto(200, doctors);
 }
 
-export const getAllDepartment = async (
+export const getAllDepartments = async (
   client: SupabaseClient<any, "public", any>,
   textSearch: string | null
 ): Promise<ServiceResponseDto> => {
@@ -57,8 +63,6 @@ export async function getDoctorById(
     .select("*")
     .eq("id", id);
 
-  console.log(doctor);
-
   if (error) {
     throw new Error(`Supabase query error: ${error.message}`);
   }
@@ -66,7 +70,7 @@ export async function getDoctorById(
     return new ServiceResponseDto(404, null);
   }
 
-  return new ServiceResponseDto(200, doctor);
+  return new ServiceResponseDto(200, doctor[0]);
 }
 
 export async function getDoctorBySymptom(
@@ -84,6 +88,40 @@ export async function getDoctorBySymptom(
     `
     )
     .eq("symptom_specialization.symptom_id", id);
+
+  const returnData = doctors.map((doctor: any) => {
+    const { symptom_specialization, ...newDoctorData } = doctor;
+    return newDoctorData;
+  });
+
+  if (error) {
+    throw new Error(`Supabase query error: ${error.message}`);
+  }
+
+  if (!returnData || returnData.length == 0) {
+    return new ServiceResponseDto(404, null);
+  }
+
+  return new ServiceResponseDto(200, returnData);
+}
+
+export async function getDoctorsByMultipleSymptoms(
+  client: any,
+  symptomsIds: string[],
+  textSearch?: string | null,
+): Promise<ServiceResponseDto> {
+  const { data: doctors, error } = await client
+    .from("doctors")
+    .select(
+      `
+      *,
+      symptom_specialization!inner (
+        symptom_id
+      )
+    `
+    )
+    .in("symptom_specialization.symptom_id", symptomsIds)
+    .like("name", `%${textSearch ?? ''}%`);
 
   const returnData = doctors.map((doctor: any) => {
     const { symptom_specialization, ...newDoctorData } = doctor;

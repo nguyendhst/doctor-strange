@@ -7,7 +7,6 @@ export async function POST(request: Request) {
   const supabase = createClient(cookieStore);
   // Error!
   const reqbody = await request.json()
-  console.log(reqbody)
   try {
     const { data, error } = await supabase
     .from('recommendations')

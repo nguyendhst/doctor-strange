@@ -1,10 +1,13 @@
+import { SupabaseClient } from "@supabase/supabase-js";
 import { ServiceResponseDto } from "../shared/dto/service-response.dto";
 import { SymptomDto } from "./symptom.dto";
 
-export async function getAllSymptoms(client: any): Promise<ServiceResponseDto> {
+export async function getAllSymptoms(client: SupabaseClient<any, "public", any>, textSearch?: string): Promise<ServiceResponseDto> {
   const { data: symptoms, error } =  await client
     .from('symptoms')
-    .select('*');
+    .select('*')
+    .like("symptom", `%${textSearch ?? ''}%`)
+    ;
 
   if(error){
     throw new Error(`Supabase query error: {error.message}`);
