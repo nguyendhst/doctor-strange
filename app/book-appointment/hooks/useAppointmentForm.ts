@@ -1,3 +1,5 @@
+"use client"
+
 import { FORM_KEY } from "@/app/const/form";
 import { queryUser } from "@/app/services/user/hooks";
 import { yupResolver } from "@hookform/resolvers/yup";

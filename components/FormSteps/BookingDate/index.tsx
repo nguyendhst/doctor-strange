@@ -8,27 +8,11 @@ import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
 import AntdRadio from '@/components/Input/Radio';
 import DoctorDetails from '@/components/DoctorDetails';
+import { useSearchDepartments, useSearchDoctors, useSearchSymptoms } from '@/components/FormSteps/BookingDate/hooks/useSearch';
 
 const { Item } = Form;
 
 const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
-
-  const isLoading = true;
-  const handleSearch = () => {
-    return null
-  }
-
-  const options = {
-    statusCode: null,
-    result: {
-      data: [
-        {
-          id: 0,
-          [FORM_KEY['SYMP']]: 'Neurologist',
-        },
-      ]
-    }
-  }
 
   const shift = [
     {
@@ -46,28 +30,75 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
 
   ]
 
+  const {
+    searchDepartments, 
+    loadingDepartments, 
+    departments,
+  } = useSearchDepartments();
+
+  const {
+    symptomsList,
+    searchSymptoms,
+    loadingSymptoms,
+  } = useSearchSymptoms();
+
+  const {
+    doctorsList,
+    loadingDoctors,
+    searchDoctors,
+    selectedDoctor,
+  } = useSearchDoctors(control);
+
   return (
     <Fragment>
       <Row gutter={24}>
 
         <Col span={24} lg={12}>
           <Col span={24}>
-            <Item label="Hospital Department Selection" required>
+            <Item label="Hospital Department Selection">
+              <Controller
+                name={FORM_KEY['DEP']}
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    allowClear
+                    onClear={() => searchDepartments('')}
+                    showSearch={true}
+                    size='large'
+                    placeholder="Select the relevant department(s) based on your symptoms."
+                    fieldNames={{ label: FORM_KEY['DEP'], value: FORM_KEY['DEP'] }}
+                    onSearch={searchDepartments}
+                    loading={loadingDepartments}
+                    options={departments}
+                    filterOption={false}
+                    notFoundContent={loadingDepartments ? <Spin className="h-full w-full m-auto" /> : <Empty />}
+                  />
+                )}
+              />
+              <ValidateError error={error} />
+            </Item>
+          </Col>
+
+          <Col span={24}>
+            <Item label="Choose some symptoms">
               <Controller
                 name={FORM_KEY['SYMP']}
                 control={control}
                 render={({ field }) => (
                   <Select
                     {...field}
-                    mode="multiple"
+                    mode='multiple'
+                    showSearch={true}
+                    allowClear={true}
                     size='large'
-                    placeholder="Select the relevant department(s) based on your symptoms."
+                    placeholder="Please select some symptoms"
                     fieldNames={{ label: FORM_KEY['SYMP'], value: 'id' }}
-                    onSearch={handleSearch}
-                    loading={isLoading}
-                    options={options?.result.data}
+                    onSearch={searchSymptoms}
+                    loading={loadingSymptoms}
+                    options={symptomsList}
                     filterOption={false}
-                    notFoundContent={isLoading ? <Spin className="h-full w-full m-auto" /> : <Empty />}
+                    notFoundContent={loadingSymptoms ? <Spin className="h-full w-full m-auto" /> : <Empty />}
                   />
                 )}
               />
@@ -98,15 +129,16 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
                 render={({ field }) => (
                   <Select
                     {...field}
-                    mode="multiple"
+                    allowClear
+                    onClear={() => searchDoctors('')}
                     size='large'
                     placeholder="Doctor's info displayed upon selection.."
-                    fieldNames={{ label: FORM_KEY['DOCTOR'], value: 'id' }}
-                    onSearch={handleSearch}
-                    loading={isLoading}
-                    options={options?.result.data}
+                    fieldNames={{ label: 'name', value: 'id' }}
+                    onSearch={searchDoctors}
+                    loading={loadingDoctors}
+                    options={doctorsList}
                     filterOption={false}
-                    notFoundContent={isLoading ? <Spin className="h-full w-full m-auto" /> : <Empty />}
+                    notFoundContent={loadingDoctors ? <Spin className="h-full w-full m-auto" /> : <Empty />}
                   />
                 )}
               />
@@ -127,7 +159,7 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
         </Col>
 
         <Col span={0} lg={12}>
-          <DoctorDetails />
+          <DoctorDetails doctorId={selectedDoctor}/>
         </Col>
       </Row >
     </Fragment >
