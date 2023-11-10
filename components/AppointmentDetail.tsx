@@ -23,6 +23,9 @@ type AppointmentType = {
 };
 
 function formatTimestamp(t: string) {
+  if (t === "---") {
+    return t;
+  }
   const time = new Date(t);
   return time
     .toLocaleString("vi-VN", {
@@ -45,13 +48,13 @@ export default function AppointmentDetail({
   return (
     <div className="flex flex-col justify-center items-top bg-slate-100 w-full p-6 rounded-lg gap-y-0.5 shadow-md">
       {/* Header */}
-      <div className="flex flex-row flex-wrap justify-between items-center">
+      <div className="flex flex-col flex-wrap justify-start items-start">
         <Link href={`/appointments#${appointmentId}`}>
           <h1 className="text-2xl font-semibold hover:underline">
             Appointment {appointmentId}
           </h1>
         </Link>
-        <p className="text-sm italic">Created at: {createdAt}</p>
+        {/* <p className="text-sm italic">Created at: {formatTimestamp(createdAt)}</p> */}
       </div>
 
       {/* Patient */}

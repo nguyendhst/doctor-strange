@@ -52,7 +52,6 @@ const useSteps = (
 
   const handleNext = async () => {
     const isGoodToForward = await checkValidate();
-    console.log(isGoodToForward);
     if (isGoodToForward) {
       setCurrent(current + 1);
     }

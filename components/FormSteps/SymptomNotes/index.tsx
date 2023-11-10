@@ -9,24 +9,6 @@ import { Controller } from 'react-hook-form';
 const { Item } = Form;
 
 const SymptomNotes: React.FC<TFormControl> = ({ control, error }) => {
-
-  const isLoading = true;
-  const handleSearch = () => {
-    return null
-  }
-
-  const options = {
-    statusCode: null,
-    result: {
-      data: [
-        {
-          id: 0,
-          symptom: 'Fever',
-        },
-      ]
-    }
-  }
-
   return (
     <Fragment>
       <Row gutter={24}>

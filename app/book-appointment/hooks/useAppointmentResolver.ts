@@ -42,43 +42,6 @@ const useAppointmentFormResolver = () => {
       .string()
       .required("Please choose a time in day that you prefer!"),
   });
-  //   const AppointmentFormValidationSchemaStep2 =
-  //     yup.object().shape({
-  //       [FORM_KEY.NOTE]: yup.string().required('Please provide some information'),
-  //     })
-  //   ;
-
-  //   const AppointmentFormValidationSchemaStep3 =
-  //   yup.object().shape({
-  //     [FORM_KEY.SYMP]: yup.string().required('Please choose a department!'),
-  //     [FORM_KEY.DOCTOR]: yup.string().required('Please choose a Doctor to help you!'),
-  //     [FORM_KEY.BOOKING_DATE]: yup.string().required('Please choose a appropriate day!'),
-  //     [FORM_KEY.SHIFT]: yup.string().required('Please choose a time in day that you prefer!'),
-  //   })
-  // ;
-
-  // const pick = useCallback(
-  //   () => {
-  //     switch (current) {
-  //       case 0:
-  //         return AppointmentFormValidationSchemaStep1;
-
-  //       case 1:
-  //         return AppointmentFormValidationSchemaStep2;
-
-  //       case 2:
-  //         return AppointmentFormValidationSchemaStep3;
-
-  //       default:
-  //         return AppointmentFormValidationSchemaStep1;
-  //     }
-  //   }
-  //   , [current]
-  // )
-  // const [currentFormSchema, setCurrentFormSchema] = useState(pick());
-  // useEffect(() => {
-  //   setCurrentFormSchema(pick())
-  // }, [current])
 
   return {
     form,
