@@ -35,16 +35,6 @@ declare type TFormControl = {
   error?: MultipleFieldErrors | FieldError;
 }
 
-declare type TAppointmentFormFields = {
-  [FORM_KEY.BIRTH]? : string;
-  [FORM_KEY.EMAIL]? : string;
-  [FORM_KEY.GENDER]?: string;
-  [FORM_KEY.NAME]?: string;
-  [FORM_KEY.NOTE]?: string;
-  [FORM_KEY.PHONE]?: string;
-  [FORM_KEY.SYMP]?: string;
-}
-
 declare type TResponseMeta<T> = {
   statusCode: number;
   data: T;

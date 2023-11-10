@@ -1,55 +1,15 @@
-"use client"
+import AppointmentForm from '@/app/book-appointment/component/AppointmentForm';
+import { Metadata } from 'next';
 
-import BookingSteps from '@/components/BookingSteps';
-import useAppointmentFormResolver from '@/app/book-appointment/hooks/useAppointmentResolver';
-import useSteps from '@/app/book-appointment/hooks/useSteps';
-import { useCounter } from '@/app/book-appointment/hooks/useCounter';
-import { useAppointmentForm } from '@/app/book-appointment/hooks/useAppointmentForm';
-import FormSteps from '@/components/FormSteps';
-import Button from '@/components/Button';
-
-
-const AppointmentForm = () => {
-
-  const { current, setCurrent } = useCounter();
-  const { form, currentFormSchema } = useAppointmentFormResolver(current);
-  const { control, dirtyFields, errors, isDirty, isValid, getValues, handleSubmit } = useAppointmentForm(currentFormSchema)
-
-  const {
-    steps,
-    nextStepDisabled,
-    previousStepDisabled,
-    handleNext,
-    handlePrevious,
-    isLastStep,
-  } = useSteps(isValid, current, setCurrent);
-
+const BookAppointment = () => {
   return (
-    <div className="max-w-7xl bg-white min-h-fit max-h-[720px]  p-6 w-full rounded-xl">
-      <BookingSteps
-        steps={steps}
-        current={current}
-        leftContent={
-          <Button onClick={handlePrevious} disabled={previousStepDisabled}>
-            Previous
-          </Button>
-        }
-        rightContent={
-          isLastStep
-            ?
-            <Button type="default" >
-              Done
-            </Button>
-            :
-            <Button type="default" onClick={handleSubmit(handleNext)} disabled={nextStepDisabled}>
-              Next
-            </Button>
-        }
-      >
-        <FormSteps control={control} errors={errors} current={current} form={form} />
-      </BookingSteps>
-    </div >
+    <AppointmentForm />
   )
 }
 
-export default AppointmentForm
+export const metadata: Metadata = {
+  title: 'Book Appointment',
+  description: 'Submit form to meet a doctor',
+}
+
+export default BookAppointment

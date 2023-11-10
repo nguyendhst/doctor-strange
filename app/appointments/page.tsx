@@ -25,7 +25,6 @@ export default function Page() {
     isLoading,
   } = queryAppointmentsDetails(data?.data?.email);
 
-  console.log(res);
   return (
     <div className="md:w-1/2 w-full flex flex-col items-center gap-y-5 p-5 text-slate-700">
       <h1 className="text-4xl font-bold mb-2">Appointments</h1>
