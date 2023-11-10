@@ -40,7 +40,7 @@ export default function Page() {
       />
       ) : isLoading ? (
         <Spin />
-      ) : res?.data === null ? (
+      ) : (res?.data === null || res?.data.length === 0) ? (
         <Empty />
       ) : (
         res?.data?.map((item: any) => (
