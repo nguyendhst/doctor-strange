@@ -48,11 +48,11 @@ export default function Page() {
             key={item?.id}
             appointmentId={item?.id}
             createdAt={"---"}
-            patientName={item?.users?.name || "---"}
-            socialId={item?.users?.social_id || "---"}
-            symptoms={[item?.symptoms?.symptom]}
-            doctorName={item?.doctors?.name || "---"}
-            departmentName={item?.doctors?.department || "---"}
+            patientName={item?.users.name || "---"}
+            socialId={item?.users.social_id || "---"}
+            symptoms={[item?.symptoms.symptom]}
+            doctorName={item?.doctors.name || "---"}
+            departmentName={item?.doctors.department || "---"}
             schedule={item?.recommendation_time || "---"}
           />
         ))
