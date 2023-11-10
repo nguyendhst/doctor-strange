@@ -45,15 +45,15 @@ export default function Page() {
       ) : (
         res?.data?.map((item: any) => (
           <AppointmentDetail
-            key={item.id}
-            appointmentId={item.id}
+            key={item?.id}
+            appointmentId={item?.id}
             createdAt={"---"}
-            patientName={item.users.name || "---"}
-            socialId={item.users.social_id || "---"}
-            symptoms={[item.symptoms.symptom]}
-            doctorName={item.doctors.name || "---"}
-            departmentName={item.doctors.department || "---"}
-            schedule={item.recommendation_time || "---"}
+            patientName={item?.users?.name || "---"}
+            socialId={item?.users?.social_id || "---"}
+            symptoms={[item?.symptoms?.symptom]}
+            doctorName={item?.doctors?.name || "---"}
+            departmentName={item?.doctors?.department || "---"}
+            schedule={item?.recommendation_time || "---"}
           />
         ))
       )}
