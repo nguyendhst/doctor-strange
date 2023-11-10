@@ -19,7 +19,7 @@ export async function POST(request: Request) {
         doctors (id, name, department),
         symptoms (symptom),
         recommendation_time
-    `
+      `
       )
       .like("users.contact", `%${reqbody.email.toString()}%`);
 
