@@ -6,23 +6,35 @@ export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   // Error!
-  const reqbody = await request.json()
+  const reqbody = await request.json();
+
+  // Filter with foreign table -> <table>!inner
   try {
     const { data, error } = await supabase
-    .from('recommendations')
-    .select(`
+      .from("recommendations")
+      .select(
+        `
         id,
-        users (id, name, social_id, contact),
+        users!inner (id, name, social_id, contact),
         doctors (id, name, department),
         symptoms (symptom),
         recommendation_time
-    `)
-    .eq("contact", reqbody.email)
+      `
+      )
+      .like("users.contact", `%${reqbody.email.toString()}%`);
 
-    return NextResponse.json({
+    if (data) {
+      return NextResponse.json({
         message: "Successful",
         data: data,
-        statusCode: 200
+        statusCode: 200,
+      });
+    }
+
+    return NextResponse.json({
+      message: "Successful",
+      data: [],
+      statusCode: 200,
     });
   } catch (error) {
     console.log("Error in app/api/appointments/route.tsx", error);
