@@ -4,7 +4,7 @@ import { ConfigProvider } from "antd";
 import AuthButton from "@/components/AuthButton";
 import { Image, Menu, MenuProps } from "antd";
 import Link from "next/link";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 type TNavBar = {
@@ -24,15 +24,14 @@ const items: MenuProps["items"] = [
 
 const NavBar: React.FC<TNavBar> = ({ children }) => {
   const route = [usePathname()];
-
   return (
     <ConfigProvider>
       <div className="flex flex-row justify-between h-20 bg-white border-b-1 sticky top-0 left-0 z-50">
-        <div className="flex flex-row justify-center items-center font-pacifico">
-          <img src="logo.png" className="h-full"></img>
+        <div className="flex flex-row justify-center items-center">
+          <img src="medical-team.png" className="h-full p-2"></img>
           <div className="flex flex-col">
-            <div className="text-xl text-blue-500">DOCTOR</div>
-            <div className="text-xl text-blue-500">STRANGE</div>
+            <div className="text-xl font-bold text-neutral-400">DOCTOR</div>
+            <div className="text-xl font-bold text-blue-500">STRANGE</div>
           </div>
         </div>
         <Menu
