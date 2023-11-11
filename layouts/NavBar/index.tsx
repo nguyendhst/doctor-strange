@@ -30,10 +30,12 @@ const NavBar: React.FC<TNavBar> = ({ children }) => {
   const { data, isLoading } = queryUser();
   const user = data?.data;
 
+
+
   // const checkLoggedIn = async () => {}
 
   useEffect(() => {
-    if (!user && !isLoading) navigator.push("/login");
+    if (!user && !isLoading && route[0] != '/signup') navigator.push("/login");
   }, [data, route]);
 
   // console.log(route)
