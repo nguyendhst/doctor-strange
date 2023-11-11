@@ -20,6 +20,7 @@ type AppointmentType = {
   doctorName: string;
   departmentName: string;
   schedule: string;
+  shift: string;
 };
 
 function formatTimestamp(t: string) {
@@ -30,9 +31,19 @@ function formatTimestamp(t: string) {
   return time
     .toLocaleString("vi-VN", {
       dateStyle: "full",
-      timeStyle: "short",
+      // timeStyle: "full",
     })
-    .replace("lúc" || "when", "");
+    // .toLocaleString("vi-VN")
+    // .replace("lúc" || "when", "");
+}
+
+function formatShift(s: string) {
+  if (s === "MORNING") {
+    return "Ca Sáng (7:30 - 11:30)"
+  }
+  else {
+    return "Ca Chiều (13:30 - 17:30)"
+  }
 }
 
 export default function AppointmentDetail({
@@ -44,9 +55,10 @@ export default function AppointmentDetail({
   doctorName = "<null>",
   departmentName = "<null>",
   schedule = "<null>",
+  shift = "<null>"
 }: AppointmentType) {
   return (
-    <div className="flex flex-col justify-center items-top bg-slate-100 w-full p-6 rounded-lg gap-y-0.5 shadow-md">
+    <div className="flex flex-col justify-center items-top bg-white w-full p-6 rounded-lg gap-y-0.5 shadow-md">
       {/* Header */}
       <div className="flex flex-col flex-wrap justify-start items-start">
         <Link href={`/appointments#${appointmentId}`}>
@@ -65,7 +77,7 @@ export default function AppointmentDetail({
         </div>
       </Divider>
       <p className="">Fullname: {patientName}</p>
-      <p className="">Social Id: {socialId}</p>
+      {/* <p className="">Social Id: {socialId}</p> */}
       <p className="">Symptoms: {symptoms.join(", ")}</p>
 
       {/* Appointment */}
@@ -81,7 +93,7 @@ export default function AppointmentDetail({
       <p className="">
         Schedule:{" "}
         <span className=" text-blue-600 font-semibold">
-          {formatTimestamp(schedule)}
+          {formatShift(shift) + ", " + formatTimestamp(schedule)}
         </span>
       </p>
     </div>
