@@ -13,10 +13,6 @@ type TNavBar = {
 
 const items: MenuProps['items'] = [
   {
-    label: <Link href='/'>Dashboard</Link>,
-    key: '/',
-  },
-  {
     label: <Link href={'/book-appointment'}>Book Appointment</Link>,
     key: '/book-appointment',
   },
