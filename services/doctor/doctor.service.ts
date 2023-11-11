@@ -2,6 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { ServiceResponseDto } from "../shared/dtos/service-response.dto";
 import { CreateDoctorDto } from "./doctor-create.dto";
 import { UpdateDoctorDto } from "./doctor-update.dto";
+import dayjs from "dayjs";
 
 export async function createDoctor(
   client: any,
@@ -21,7 +22,7 @@ export async function getallDoctor(
   const { data: doctors, error } = await client
     .from("doctors")
     .select("*")
-    .like("name", `%${textSearch ?? ''}%`);
+    .like("name", `%${textSearch ?? ""}%`);
 
   if (error) {
     throw new Error(`Supabase query error: ${error.message}`);
@@ -108,7 +109,7 @@ export async function getDoctorBySymptom(
 export async function getDoctorsByMultipleSymptoms(
   client: any,
   symptomsIds: string[],
-  textSearch?: string | null,
+  textSearch?: string | null
 ): Promise<ServiceResponseDto> {
   const { data: doctors, error } = await client
     .from("doctors")
@@ -121,7 +122,7 @@ export async function getDoctorsByMultipleSymptoms(
     `
     )
     .in("symptom_specialization.symptom_id", symptomsIds)
-    .like("name", `%${textSearch ?? ''}%`);
+    .like("name", `%${textSearch ?? ""}%`);
 
   const returnData = doctors.map((doctor: any) => {
     const { symptom_specialization, ...newDoctorData } = doctor;
@@ -167,4 +168,57 @@ export async function deleteDoctor(
   }
 
   return new ServiceResponseDto(200, null);
+}
+
+export async function getFreeSchedule(
+  client: SupabaseClient<any, "public", any>,
+  doctorId: string,
+  date: string
+): Promise<ServiceResponseDto> {
+  if (!doctorId || !date)
+    return new ServiceResponseDto(200, [
+      {
+        code: "MORNING",
+        name: "Morning",
+      },
+      {
+        code: "AFTERNOON",
+        name: "Afternoon",
+      },
+    ]);
+  const { data: morningShifts } = await client
+    .from("recommendations")
+    .select("shift")
+    .eq("doctor_id", doctorId)
+    .lt("recommendation_time", dayjs(date).endOf("day").toISOString())
+    .gt("recommendation_time", dayjs(date).startOf("day").toISOString())
+    .eq("shift", "MORNING");
+
+  const { data: afternoonShifts } = await client
+    .from("recommendations")
+    .select("shift")
+    .eq("doctor_id", doctorId)
+    .lt("recommendation_time", dayjs(date).endOf("day").toISOString())
+    .gt("recommendation_time", dayjs(date).startOf("day").toISOString())
+    .eq("shift", "AFTERNOON");
+
+  // const availableShifts ={
+  //   morning: !morningShifts || morningShifts?.length < 10,
+  //   afternoon: !afternoonShifts || afternoonShifts?.length <10
+  // }
+
+  const data = [
+    {
+      code: "MORNING",
+      name: "Morning",
+      disabled: !(!morningShifts || morningShifts?.length < 10),
+    },
+    {
+      code: "AFTERNOON",
+      name: "Afternoon",
+      disabled: !(!afternoonShifts || afternoonShifts?.length < 10),
+    },
+  ];
+
+  return new ServiceResponseDto(200, data);
 }

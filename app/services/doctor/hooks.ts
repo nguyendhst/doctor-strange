@@ -3,13 +3,19 @@ import {
   getUniqueDepartments,
   getDoctorDetail,
   getDoctorsBySymptoms,
+  getDoctorSchedule,
 } from "@/app/services/doctor/api-services";
 import {
   API_GET_DEPARTMENTS,
   API_GET_DOCTORS_BY_SYMPTOMS,
+  API_GET_DOCTORS_SCHEDULE,
   API_GET_DOCTOR_BY_ID,
 } from "@/app/services/doctor/cache-keys";
 import urlcat from "urlcat";
+
+type TMutate = {
+  id: string | any | null;date: string | any | Date | null;
+}
 
 export const queryDoctorByID = (id?: number | string) => {
   return useQuery([API_GET_DOCTOR_BY_ID, id], () => getDoctorDetail(id), {
@@ -29,5 +35,12 @@ export const queryDoctorsBySymtoms = (
 ) => {
   return useQuery([API_GET_DOCTORS_BY_SYMPTOMS], () =>
     getDoctorsBySymptoms(ids, search)
+  );
+};
+
+export const queryDoctorSchedule = () => {
+  return useMutation(
+    [API_GET_DOCTORS_SCHEDULE],
+    (obj: TMutate) => getDoctorSchedule(obj.id, obj.date)
   );
 };
