@@ -85,7 +85,7 @@ const useSteps = (
         onSuccess: () => {
           notification.success({
             message: "Success!",
-            description: "Your assignment has been booked!",
+            description: "Your appointment has been booked!",
           });
           navigator.push("/appointments");
         },

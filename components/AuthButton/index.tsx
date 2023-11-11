@@ -1,15 +1,12 @@
-"use client"
-import { createClient } from '@/utils/supabase/server'
-import Link from 'next/link'
-import { cookies } from 'next/headers'
-import { queryUser } from '@/app/services/user/hooks'
-import { Button } from 'antd';
+"use client";
+import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
+import { cookies } from "next/headers";
+import { queryUser } from "@/app/services/user/hooks";
+import { Button } from "antd";
 
 export default function AuthButton() {
-
-  const {
-    data
-  } = queryUser();
+  const { data } = queryUser();
 
   const user = data?.data;
 
@@ -25,13 +22,15 @@ export default function AuthButton() {
   ) : (
     <div className="flex items-center gap-4 pr-4">
       You haven't logged in yet!
-      <Link
-        href="/login"
-      >
-        <Button size='large' type='primary' className="ant-btn-primary px-4 ">
+      <Link href="/login">
+        <Button
+          size="large"
+          type="primary"
+          className="ant-btn-primary px-4 font-bold"
+        >
           Login
         </Button>
       </Link>
     </div>
-  )
+  );
 }

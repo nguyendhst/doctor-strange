@@ -45,7 +45,7 @@ export default function Login() {
         </button>
         <button
           // formAction="/auth/sign-up"
-          className="border-none px-4 text-foreground mb-4 text-neutral-800"
+          className="border-none px-4 text-lg text-foreground mb-4 text-neutral-800"
         >
           <Link href="/signup">Sign Up</Link>
         </button>
