@@ -2,6 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { ServiceResponseDto } from "../shared/dtos/service-response.dto";
 import { CreateDoctorDto } from "./doctor-create.dto";
 import { UpdateDoctorDto } from "./doctor-update.dto";
+import dayjs from "dayjs";
 
 export async function createDoctor(
   client: any,
@@ -167,4 +168,34 @@ export async function deleteDoctor(
   }
 
   return new ServiceResponseDto(200, null);
+}
+
+export async function getFreeSchedule(
+  client: SupabaseClient<any, "public", any>,
+  doctorId: string,
+  date: string,
+): Promise<ServiceResponseDto> {
+
+  const { data: morningShifts } = await client
+    .from('recommendations')
+    .select('shift')
+    .eq('doctor_id', doctorId)
+    .lt('recommendation_time', dayjs(date).endOf('day').toISOString())
+    .gt('recommendation_time', dayjs(date).startOf('day').toISOString())
+    .eq('shift', 'MORNING')
+
+  const { data: afternoonShifts } = await client
+    .from('recommendations')
+    .select('shift')
+    .eq('doctor_id', doctorId)
+    .lt('recommendation_time', dayjs(date).endOf('day').toISOString())
+    .gt('recommendation_time', dayjs(date).startOf('day').toISOString())
+    .eq('shift', 'AFTERNOON')
+
+  const availableShifts ={
+    morning: !morningShifts || morningShifts?.length < 10,
+    afternoon: !afternoonShifts || afternoonShifts?.length <10
+  }
+
+  return new ServiceResponseDto(200, availableShifts);
 }
