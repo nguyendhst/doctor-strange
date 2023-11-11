@@ -43,6 +43,7 @@ export default function Page() {
             doctorName={item?.doctors.name || "---"}
             departmentName={item?.doctors.department || "---"}
             schedule={item?.recommendation_time || "---"}
+            shift={item?.shift || "---"}
           />
         ))
       )}
