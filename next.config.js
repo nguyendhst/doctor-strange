@@ -3,12 +3,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/book-appointment',
-        permanent: true,
+        source: "/",
+        destination: "/login",
+        permanent: false,
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
