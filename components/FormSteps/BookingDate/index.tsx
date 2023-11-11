@@ -84,7 +84,7 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
           </Col>
 
           <Col span={24}>
-            <Item label="Choose some symptoms">
+            <Item label="Choose some symptoms" required>
               <Controller
                 name={FORM_KEY["SYMP"]}
                 control={control}
