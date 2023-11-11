@@ -27,7 +27,7 @@ const AntdRadio: React.FC<TRadio> = ({ control, name, values, className, disable
                 className={className}
                 disabled={disabled}
               >
-                {values.map(
+                {values?.map(
                   (item: {
                     code: number | string | boolean;
                     name: string | number;

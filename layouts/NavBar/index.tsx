@@ -4,8 +4,9 @@ import { ConfigProvider } from "antd";
 import AuthButton from "@/components/AuthButton";
 import { Image, Menu, MenuProps } from "antd";
 import Link from "next/link";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { queryUser } from "@/app/services/user/hooks";
 
 type TNavBar = {
   children?: React.ReactNode;
@@ -24,6 +25,18 @@ const items: MenuProps["items"] = [
 
 const NavBar: React.FC<TNavBar> = ({ children }) => {
   const route = [usePathname()];
+  const navigator = useRouter();
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const { data, isLoading } = queryUser();
+  const user = data?.data;
+
+  // const checkLoggedIn = async () => {}
+
+  useEffect(() => {
+    if (!user && !isLoading) navigator.push("/login");
+  }, [data, route]);
+
+  // console.log(route)
   return (
     <ConfigProvider>
       <div className="flex flex-row justify-between h-20 bg-white border-b-1 sticky top-0 left-0 z-50">

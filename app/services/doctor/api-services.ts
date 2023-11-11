@@ -2,6 +2,7 @@ import request from "umi-request";
 import {
   API_GET_DEPARTMENTS,
   API_GET_DOCTORS_BY_SYMPTOMS,
+  API_GET_DOCTORS_SCHEDULE,
   API_GET_DOCTOR_BY_ID,
 } from "@/app/services/doctor/cache-keys";
 
@@ -36,6 +37,19 @@ export const getDoctorsBySymptoms = async (
     params: {
       ids,
       search,
+    },
+  });
+};
+
+export const getDoctorSchedule = async (
+  id: string | null,
+  date: string | Date | null,
+): Promise<TResponseMeta<any | null>> => {
+  return request<TResponseMeta<any | null>>(API_GET_DOCTORS_SCHEDULE, {
+    method: "GET",
+    params: {
+      id,
+      date,
     },
   });
 };

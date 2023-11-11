@@ -4,7 +4,7 @@ import AntdDatePicker from "@/components/Input/DatePicker";
 import ValidateError from "@/components/Input/ValidateError";
 import { Row, Col, Form, Select, Spin, Empty } from "antd";
 import React, { Fragment } from "react";
-import { Controller } from "react-hook-form";
+import { Controller, useWatch } from "react-hook-form";
 import dayjs from "dayjs";
 import AntdRadio from "@/components/Input/Radio";
 import DoctorDetails from "@/components/DoctorDetails";
@@ -13,6 +13,8 @@ import {
   useSearchDoctors,
   useSearchSymptoms,
 } from "@/components/FormSteps/BookingDate/hooks/useSearch";
+import { queryDoctorSchedule } from "@/app/services/doctor/hooks";
+import { useSchedule } from "@/components/FormSteps/BookingDate/hooks/useSchedule";
 
 const { Item } = Form;
 
@@ -41,6 +43,7 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
     useSearchDoctors(control);
   console.log(control);
 
+  const { schedule, isLoading } = useSchedule(control);
   return (
     <Fragment>
       <Row gutter={24}>
@@ -165,7 +168,7 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
                 className="flex flex-row gap-2 "
                 control={control}
                 name={FORM_KEY["SHIFT"]}
-                values={shift}
+                values={schedule}
               />
             </Item>
           </Col>
