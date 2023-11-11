@@ -2,9 +2,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FORM_KEY } from "@/app/const/form";
-import { useCallback, useEffect, useState } from "react";
 import { Form } from "antd";
-import { TAppointmentFormFields } from "@/app/book-appointment/hooks/useAppointmentForm";
 
 const useAppointmentFormResolver = () => {
   const [form] = Form.useForm();

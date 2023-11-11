@@ -12,7 +12,7 @@ const AppointmentForm = () => {
 
   const { current, setCurrent } = useCounter();
   const { form, FormSchema } = useAppointmentFormResolver();
-  const { control, dirtyFields, errors, isDirty, isValid, getValues, handleSubmit, trigger} = useAppointmentForm(FormSchema)
+  const { control, dirtyFields, errors, isDirty, isValid, getValues, trigger} = useAppointmentForm(FormSchema)
 
   const {
     steps,
@@ -20,7 +20,10 @@ const AppointmentForm = () => {
     previousStepDisabled,
     handleNext,
     handlePrevious,
+    handleSubmit,
     isLastStep,
+    submitLoading,
+    submitError,
   } = useSteps(isValid, current, setCurrent, trigger);
 
   return (
@@ -36,11 +39,11 @@ const AppointmentForm = () => {
         rightContent={
           isLastStep
             ?
-            <Button type="default" onClick={handleNext}>
+            <Button type="default" onClick={() => handleSubmit(getValues())} loading={submitLoading}>
               Done
             </Button>
             :
-            <Button type="default" onClick={handleNext}>
+            <Button type="default" onClick={handleNext} >
               Next
             </Button>
         }
