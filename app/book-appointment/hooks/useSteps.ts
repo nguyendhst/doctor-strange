@@ -1,7 +1,9 @@
 "use client";
 import { TAppointmentFormFields } from "@/app/book-appointment/hooks/useAppointmentForm";
 import { FORM_KEY } from "@/app/const/form";
-import { StepProps } from "antd";
+import { useFormSubmission } from "@/app/services/form/hooks";
+import { StepProps, notification } from "antd";
+import { redirect } from "next/navigation";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { UseFormHandleSubmit, UseFormTrigger } from "react-hook-form";
 
@@ -52,7 +54,7 @@ const useSteps = (
 
   const handleNext = async () => {
     const isGoodToForward = await checkValidate();
-    if (isGoodToForward) {
+    if (isGoodToForward && current < steps.length) {
       setCurrent(current + 1);
     }
   };
@@ -63,6 +65,31 @@ const useSteps = (
     }
   };
 
+  const {
+    mutate,
+    isLoading: submitLoading,
+    isError: submitError,
+  } = useFormSubmission();
+
+  const handleSubmit = (formValue: TAppointmentFormFields) => {
+    mutate(
+      {
+        ...formValue,
+        [FORM_KEY.BOOKING_DATE]: new Date(formValue[FORM_KEY.BOOKING_DATE]),
+        [FORM_KEY.BIRTH]: new Date(formValue[FORM_KEY.BIRTH]),
+      },
+      {
+        onSuccess: () => {
+          notification.success({
+            message: "Success!",
+            description: "Your assignment has been booked!",
+          });
+          redirect("/appointments");
+        },
+      }
+    );
+  };
+
   return {
     steps,
     nextStepDisabled: !isValid,
@@ -70,6 +97,9 @@ const useSteps = (
     isLastStep: current === steps.length - 1,
     handleNext,
     handlePrevious,
+    handleSubmit,
+    submitLoading,
+    submitError,
   };
 };
 

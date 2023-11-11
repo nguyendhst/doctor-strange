@@ -95,7 +95,9 @@ export async function createAppointment(
       doctor_id: appointment.doctorId,
       symptom_id: appointment.symptomId,
       recommendation_time: appointment.recommendationTime,
-      notes : appointment.note
+      notes : appointment.note,
+      shift: appointment.shift,
+      symptom_id_array:  appointment.symptomIdArray,
     })
     .select();
   

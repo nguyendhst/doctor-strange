@@ -1,19 +1,32 @@
-export class CreateAppointmentDto{
-  userId: number;
+export class CreateAppointmentDto {
+  userId?: number | string;
 
-  doctorId: number;
+  doctorId?: number | string;
 
-  symptomId: number;
+  symptomId?: number | string;
 
-  recommendationTime: Date;
+  symptomIdArray?: number[] | string[];
+
+  recommendationTime?: Date | string;
 
   note?: string;
 
-  constructor(userId: number, doctorId: number, symptomId: number, recommendationTime: Date, note?: string) {
+  shift?: string;
+
+  constructor(
+    userId?: number | string,
+    doctorId?: number | string,
+    recommendationTime?: Date | string,
+    shift?: string,
+    symptomId?: number[] | string[],
+    note?: string
+  ) {
     this.userId = userId;
     this.doctorId = doctorId;
-    this.symptomId = symptomId;
+    this.symptomIdArray = symptomId;
+    this.symptomId = symptomId?.[0];
     this.recommendationTime = recommendationTime;
     this.note = note;
+    this.shift = shift;
   }
 }

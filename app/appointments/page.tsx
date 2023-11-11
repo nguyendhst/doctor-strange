@@ -4,19 +4,8 @@ import { queryAppointmentsDetails } from "../services/appointments/hooks";
 import { Spin, Empty } from "antd";
 import { Button, Result } from 'antd';
 import { queryUser } from "../services/user/hooks";
-// export async function getAppointmentDetail() {
-//   try {
-//     const response = await fetch(process.env.DOMAIN + "/api/appointments", {
-//       method: "GET",
-//       cache: "no-cache"
-//     });
-//     return await response.json();
-//   } catch (error) {
-//     console.log("Error in app/appointments/page.tsx", error);
-//   }
-// }
+
 export default function Page() {
-  // const res = await getAppointmentDetail();
   const { data } = queryUser();
 
   const {

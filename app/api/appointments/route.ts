@@ -21,8 +21,10 @@ export async function POST(request: Request) {
         recommendation_time
       `
       )
-      .like("users.contact", `%${reqbody.email.toString()}%`);
-
+      // .like("users.contact", `%${reqbody.email.toString()}%`);
+      .match({
+        "users.contact": reqbody.email.toString()
+      })
     if (data) {
       return NextResponse.json({
         message: "Successful",
