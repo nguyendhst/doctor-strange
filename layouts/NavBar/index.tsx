@@ -5,6 +5,7 @@ import AuthButton from '@/components/AuthButton';
 import { Image, Menu, MenuProps } from 'antd';
 import Link from 'next/link';
 import React, { Fragment } from 'react'
+import { usePathname, useRouter } from 'next/navigation';
 
 type TNavBar = {
   children?: React.ReactNode;
@@ -12,20 +13,18 @@ type TNavBar = {
 
 const items: MenuProps['items'] = [
   {
-    label: <Link href='/'>Dashboard</Link>,
-    key: '',
-  },
-  {
     label: <Link href={'/book-appointment'}>Book Appointment</Link>,
-    key: 'book-appointment',
+    key: '/book-appointment',
   },
   {
     label: <Link href={'/appointments'}>My Appointments</Link>,
-    key: 'appointments'
+    key: '/appointments'
   },
 ];
 
 const NavBar: React.FC<TNavBar> = ({ children }) => {
+  const route = [usePathname()];
+
   return (
     <ConfigProvider>
       <div className="flex flex-row justify-between h-20 bg-white border-b-1 sticky top-0 left-0 z-50">
@@ -33,7 +32,7 @@ const NavBar: React.FC<TNavBar> = ({ children }) => {
           <img src='logo.png' className="h-full"></img>
           <div className="flex flex-col"><div className='text-xl text-blue-500'>DOCTOR</div><div className='text-xl text-blue-500'>STRANGE</div></div>
         </div>
-        <Menu items={items} mode="horizontal" className='ant-menu-custom'></Menu>
+        <Menu items={items} mode="horizontal" className='ant-menu-custom' selectedKeys={route}></Menu>
         <AuthButton />
       </div>
 

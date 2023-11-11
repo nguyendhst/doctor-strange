@@ -16,15 +16,15 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
 
   const shift = [
     {
-      code: 0,
+      code: 'MORNING',
       name: 'Morning',
     },
     {
-      code: 1,
+      code: 'NOON',
       name: 'Noon',
     },
     {
-      code: 2,
+      code: 'AFTERNOON',
       name: 'Afternoon',
     },
 
