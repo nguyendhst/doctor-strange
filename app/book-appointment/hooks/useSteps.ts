@@ -6,6 +6,7 @@ import { StepProps, notification } from "antd";
 import { redirect } from "next/navigation";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { UseFormHandleSubmit, UseFormTrigger } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 const useSteps = (
   isValid: boolean,
@@ -71,6 +72,8 @@ const useSteps = (
     isError: submitError,
   } = useFormSubmission();
 
+  const navigator = useRouter();
+
   const handleSubmit = (formValue: TAppointmentFormFields) => {
     mutate(
       {
@@ -84,7 +87,7 @@ const useSteps = (
             message: "Success!",
             description: "Your assignment has been booked!",
           });
-          redirect("/appointments");
+          navigator.push("/appointments");
         },
       }
     );
