@@ -8,7 +8,7 @@
     "migration:new": "npx supabase migration new",
     "migration:up": "npx supabase migration up",
     "migration:push": "npx supabase db push",
-    "test": "npx jest"
+    "test": "npx jest --noStackTrace --silent"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",

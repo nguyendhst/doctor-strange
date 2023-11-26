@@ -21,7 +21,9 @@ export default function Login() {
             Email
           </label>
           <input
+		    id="email"
             className="border-b-2 outline-0"
+			type="email"
             name="email"
             placeholder="you@example.com"
             required
@@ -33,6 +35,7 @@ export default function Login() {
             Password
           </label>
           <input
+		    id="password"
             className="border-b-2 outline-0"
             type="password"
             name="password"
