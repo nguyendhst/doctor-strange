@@ -44,6 +44,7 @@ declare global {
       fillStep2(note: string): Chainable<void>;
 
       step3FindDoctorBySymptom(symptoms: string[]): Chainable<void>;
+      stepSearchForSymptom(symptom: string): Chainable<void>;
 
       getInputByLabel(label: string): Chainable<JQuery<HTMLInputElement>>;
       getAntdInputByLabel(label: string): Chainable<JQuery<HTMLInputElement>>;
@@ -122,4 +123,18 @@ Cypress.Commands.add("step3FindDoctorBySymptom", (symptoms) => {
     cy.wait(500).wait("@searchSymptoms");
     cy.get(".ant-select-item-option-content").contains(symptom).click();
   });
+});
+
+Cypress.Commands.add("stepSearchForSymptom", (symptom: string) => {
+  cy.visit("/");
+  cy.login("hoangkimc93@gmail.com", "123123");
+  cy.fillStep1("Hoàng Kim Cương", "Male", "24/12/2002", "0992377733");
+  cy.fillStep2("Hello from Cypress!!");
+
+  cy.wait("@searchSymptoms");
+    cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+
+    // Wait for Debounce to happen and API call
+    cy.wait(500).wait("@searchSymptoms");
+    // cy.get(".ant-select-item-option-content").contains(symptom).click();
 });
