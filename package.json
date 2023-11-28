@@ -7,7 +7,9 @@
     "init": "npx supabase init",
     "migration:new": "npx supabase migration new",
     "migration:up": "npx supabase migration up",
-    "migration:push": "npx supabase db push"
+    "migration:push": "npx supabase db push",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
@@ -37,6 +39,7 @@
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.5",
     "@types/yup": "^0.32.0",
+    "cypress": "^13.6.0",
     "encoding": "^0.1.13",
     "postcss-nested": "^6.0.1",
     "postcss-nesting": "^12.0.1",

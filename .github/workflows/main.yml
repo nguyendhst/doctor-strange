@@ -1,0 +1,21 @@
+name: E2E test
+
+on: push
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://stpohqwjvxtyciqvwrzv.supabase.co
+          SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0cG9ocXdqdnh0eWNpcXZ3cnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTg2NjUxMjIsImV4cCI6MjAxNDI0MTEyMn0.RhEFLLkaHORV2siXha4SYN1Nh5NM7IDMbA89c5lQydk
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0cG9ocXdqdnh0eWNpcXZ3cnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTg2NjUxMjIsImV4cCI6MjAxNDI0MTEyMn0.RhEFLLkaHORV2siXha4SYN1Nh5NM7IDMbA89c5lQydk
+        with:
+          build: npm run build
+          start: npm run start
