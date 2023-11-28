@@ -30,6 +30,7 @@ beforeEach(() => {
   cy.intercept("GET", "/services/doctor/by-symptoms?ids=*&search=*").as(
     "doctorBySymptoms"
   );
+  cy.intercept("POST", "/api/appointments").as("getAppointments")
 });
 declare global {
   namespace Cypress {
