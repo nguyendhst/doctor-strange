@@ -23,7 +23,7 @@ type AppointmentType = {
   shift: string;
 };
 
-function formatTimestamp(t: string) {
+export function formatTimestamp(t: string) {
   if (t === "---") {
     return t;
   }
@@ -37,7 +37,7 @@ function formatTimestamp(t: string) {
     // .replace("lúc" || "when", "");
 }
 
-function formatShift(s: string) {
+export function formatShift(s: string) {
   if (s === "MORNING") {
     return "Ca Sáng (7:30 - 11:30)"
   }
@@ -47,15 +47,15 @@ function formatShift(s: string) {
 }
 
 export default function AppointmentDetail({
-  appointmentId = "<null>",
-  createdAt = "<null>",
-  patientName = "<null>",
-  socialId = "<null>",
-  symptoms = ["<null>"],
-  doctorName = "<null>",
-  departmentName = "<null>",
-  schedule = "<null>",
-  shift = "<null>"
+  appointmentId = "---",
+  createdAt = "---",
+  patientName = "---",
+  socialId = "---",
+  symptoms = ["---"],
+  doctorName = "---",
+  departmentName = "---",
+  schedule = "---",
+  shift = "---"
 }: AppointmentType) {
   return (
     <div className="flex flex-col justify-center items-top bg-white w-full p-6 rounded-lg gap-y-0.5 shadow-md">
