@@ -132,9 +132,8 @@ Cypress.Commands.add("stepSearchForSymptom", (symptom: string) => {
   cy.fillStep2("Hello from Cypress!!");
 
   cy.wait("@searchSymptoms");
-    cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
-
-    // Wait for Debounce to happen and API call
-    cy.wait(500).wait("@searchSymptoms");
-    // cy.get(".ant-select-item-option-content").contains(symptom).click();
+    if(symptom!=""){
+      cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+      cy.wait(500).wait("@searchSymptoms");
+    }
 });

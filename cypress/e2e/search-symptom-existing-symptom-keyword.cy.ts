@@ -1,12 +1,13 @@
 describe("existing symptom keyword provided", () => {
   it("should return symptoms matching provided keyword", () => {
-    cy.stepSearchForSymptom("head");
-    cy.wait("@searchSymptoms").then((interception) => {
-      const responseBody = interception.response?.body;
-
-      const responseArrayLength = responseBody?.data?.length ?? 0;
-
-      expect(responseArrayLength).to.greaterThan(0);
+    const keyword = "ache";
+    cy.stepSearchForSymptom(keyword);
+    cy.request(`/services/symptoms?search=${keyword}`).then((response) => {
+      cy.getAntdInputByLabel("Choose some symptoms").click().wait(500);
+      //Get the symptom elements and expect symptom elements to contain the given keyword
+      cy.get('.ant-select-item-option-content').each((item, index, list)=>{
+        expect(Cypress.$(item).text()).to.contain(keyword);
+      })
     });
   });
 });

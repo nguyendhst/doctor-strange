@@ -9,7 +9,7 @@
     "migration:up": "npx supabase migration up",
     "migration:push": "npx supabase db push",
     "test": "npx jest --noStackTrace --silent",
-    "cypress:open": "npm run build && npm run start & cypress open",
+    "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
   "dependencies": {
