@@ -8,14 +8,14 @@ export async function createDoctor(
   client: any,
   doctor: CreateDoctorDto
 ): Promise<ServiceResponseDto> {
-  const { data, error } = await client
+  const { data } = await client
     .from("doctors")
     .insert([doctor])
     .select();
   return new ServiceResponseDto(201, data);
 }
 
-export async function getallDoctor(
+export async function getAllDoctor(
   client: SupabaseClient<any, "public", any>,
   textSearch?: string | null
 ): Promise<ServiceResponseDto> {
@@ -171,54 +171,59 @@ export async function deleteDoctor(
 }
 
 export async function getFreeSchedule(
-  client: SupabaseClient<any, "public", any>,
+  client: SupabaseClient<any, 'public', any>,
   doctorId: string,
-  date: string
+  date: number | Date | null,
 ): Promise<ServiceResponseDto> {
   if (!doctorId || !date)
     return new ServiceResponseDto(200, [
       {
-        code: "MORNING",
-        name: "Morning",
+        code: 'MORNING',
+        name: 'Morning',
       },
       {
-        code: "AFTERNOON",
-        name: "Afternoon",
+        code: 'AFTERNOON',
+        name: 'Afternoon',
       },
     ]);
-  const { data: morningShifts } = await client
-    .from("recommendations")
-    .select("shift")
-    .eq("doctor_id", doctorId)
-    .lt("recommendation_time", dayjs(date).endOf("day").toISOString())
-    .gt("recommendation_time", dayjs(date).startOf("day").toISOString())
-    .eq("shift", "MORNING");
 
-  const { data: afternoonShifts } = await client
-    .from("recommendations")
-    .select("shift")
-    .eq("doctor_id", doctorId)
-    .lt("recommendation_time", dayjs(date).endOf("day").toISOString())
-    .gt("recommendation_time", dayjs(date).startOf("day").toISOString())
-    .eq("shift", "AFTERNOON");
+  const morningCount = await getAppointmentsCountOfShift(client, doctorId, date, 'MORNING');
+  const afternoonCount = await getAppointmentsCountOfShift(client, doctorId, date, 'AFTERNOON');
 
-  // const availableShifts ={
-  //   morning: !morningShifts || morningShifts?.length < 10,
-  //   afternoon: !afternoonShifts || afternoonShifts?.length <10
-  // }
+  const isDisabled = (count: number | null) => !(count === null || count <= 1);
 
   const data = [
     {
-      code: "MORNING",
-      name: "Morning",
-      disabled: !(!morningShifts || morningShifts?.length < 10),
+      code: 'MORNING',
+      name: 'Morning',
+      disabled: isDisabled(morningCount),
     },
     {
-      code: "AFTERNOON",
-      name: "Afternoon",
-      disabled: !(!afternoonShifts || afternoonShifts?.length < 10),
+      code: 'AFTERNOON',
+      name: 'Afternoon',
+      disabled: isDisabled(afternoonCount),
     },
   ];
 
   return new ServiceResponseDto(200, data);
+}
+
+async function getAppointmentsCountOfShift(
+  client: SupabaseClient<any, 'public', any>,
+  doctorId: string,
+  date: number | Date,
+  shift: string,
+): Promise<number | null> {
+  const startOfDay = dayjs(date).startOf('day').toISOString();
+  const endOfDay = dayjs(date).endOf('day').toISOString();
+
+  const { count } = await client
+    .from('recommendations')
+    .select('count', { count: 'exact' })
+    .eq('doctor_id', doctorId)
+    .lte('recommendation_time', endOfDay)
+    .gte('recommendation_time', startOfDay)
+    .eq('shift', shift);
+
+  return count;
 }

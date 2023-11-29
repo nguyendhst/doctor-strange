@@ -1,4 +1,4 @@
-import { getDoctorBySymptom, getDoctorsByMultipleSymptoms, getallDoctor } from '@/services/doctor/doctor.service'
+import { getDoctorBySymptom, getDoctorsByMultipleSymptoms, getAllDoctor } from '@/services/doctor/doctor.service'
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest): Promise<any> {
   const textSearch = searchParams.get("search");
 
   if(!symptomIds || symptomIds.length === 0){
-    const response = await getallDoctor(supabase, textSearch);
+    const response = await getAllDoctor(supabase, textSearch);
     return NextResponse.json(response)
   }
 
