@@ -1,5 +1,10 @@
 describe("sign up flow", () => {
+  const email = "c8d72365683bb5@crankymonkey.info";
+  const password = "whoknows";
+  before(() => {
+    cy.task("creatNewAccount", { email, password });
+  });
   it("should sign up successfully", () => {
-    cy.signup("justtona3922@gmail.com", "123123");
+    cy.signup(email, password);
   });
 });

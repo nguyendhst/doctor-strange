@@ -95,7 +95,6 @@ Cypress.Commands.add("signup", (username, password) => {
   cy.getInputByLabel("Password").type(password);
   cy.getInputByLabel("Confirm Password").type(password);
   cy.get("button").contains("Sign Up").click();
-  cy.wait(15000);
   cy.login(username, password);
 });
 Cypress.Commands.add("logout", (username, password) => {
