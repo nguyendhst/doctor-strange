@@ -1,6 +1,6 @@
-import { getFormattedDate } from '../support/utils'
+import { getFormattedDate } from '../../support/utils'
 
-describe("doctor is unavailable for the morning", () => {
+describe("MOCK: The doctor is fully booked for the morning.", () => {
     it("should disable the morning option", () => {
         // Get tomorrow's date
         const tomorrow = new Date();

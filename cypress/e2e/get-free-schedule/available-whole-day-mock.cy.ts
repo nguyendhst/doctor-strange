@@ -1,6 +1,6 @@
-import { getFormattedDate } from "../support/utils";
+import { getFormattedDate } from "../../support/utils";
 
-describe("doctor is available for 2 shifts", () => {
+describe("MOCK: doctor is available for 2 shifts", () => {
 	it("should display 2 shift options", () => {
         // Get tomorrow's date
         const tomorrow = new Date();
