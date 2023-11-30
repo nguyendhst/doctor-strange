@@ -1,5 +1,15 @@
+const generateEmail = () => {
+  var chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+  var myemail = "";
+  for (let i = 0; i < 15; i++) {
+    myemail += chars[Math.floor(Math.random() * chars.length)];
+  }
+  myemail += "@gmail.com";
+  return myemail;
+};
+
 describe("sign up flow", () => {
-  const email = "c8d72365683bb5@crankymonkey.info";
+  const email = generateEmail();
   const password = "whoknows";
   before(() => {
     cy.task("creatNewAccount", { email, password });
