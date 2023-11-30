@@ -6,20 +6,18 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
       require("dotenv").config({ path: ".env.local" });
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const supabaseServiceRoleKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
       on("task", {
         async creatNewAccount({ email, password }) {
           const supabase = await createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL,
-            process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
+            process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
           );
           const { data: user, error } = await supabase.auth.admin.createUser({
             email,
             password,
             email_confirm: true,
-            data: { name: "Gogogo" },
           });
           if (error) {
             console.log("loi cmnr");
