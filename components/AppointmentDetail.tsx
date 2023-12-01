@@ -38,7 +38,10 @@ export function formatTimestamp(t: string) {
 }
 
 export function formatShift(s: string) {
-  if (s === "MORNING") {
+  if (s === "---") {
+    return "---"
+  }
+  else if (s === "MORNING") {
     return "Ca Sáng (7:30 - 11:30)"
   }
   else {
