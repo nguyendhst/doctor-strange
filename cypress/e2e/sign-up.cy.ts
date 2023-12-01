@@ -1,17 +1,9 @@
-const generateEmail = () => {
-  var chars = "abcdefghijklmnopqrstuvwxyz1234567890";
-  var myemail = "";
-  for (let i = 0; i < 15; i++) {
-    myemail += chars[Math.floor(Math.random() * chars.length)];
-  }
-  myemail += "@gmail.com";
-  return myemail;
-};
+import { generateEmail, generatePassword } from "../../utils/accountGenerate";
 
 describe("sign up flow", () => {
   const email = generateEmail();
   const newemail = generateEmail();
-  const password = "whoknows";
+  const password = generatePassword();
   it("should sign up successfully", () => {
     cy.signup(email, password);
     cy.login(email, password);
