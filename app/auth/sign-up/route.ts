@@ -9,7 +9,13 @@ export async function POST(request: Request) {
   const password = String(formData.get("password"));
 
   // this condition below is implemented to find whether exist creating account by this email or not
-  if ((await findUser(email)) === true) {
+  const res = async (email: string) => {
+    return await findUser(email);
+  };
+
+  const result = await res(email);
+
+  if (result === true) {
     return NextResponse.redirect(
       `${requestUrl.origin}/signup?error=This email was already signed up`,
       {

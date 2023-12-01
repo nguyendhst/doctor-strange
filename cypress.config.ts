@@ -11,8 +11,7 @@ export default defineConfig({
         async creatNewAccount({ email, password }) {
           const supabase = await createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL,
-            process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+            process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
           );
           const { data: user, error } = await supabase.auth.admin.createUser({
             email,
