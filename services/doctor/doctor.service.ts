@@ -180,10 +180,12 @@ export async function getFreeSchedule(
       {
         code: 'MORNING',
         name: 'Morning',
+        disabled: true
       },
       {
         code: 'AFTERNOON',
         name: 'Afternoon',
+        disabled: true
       },
     ]);
 
