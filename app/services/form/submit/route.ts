@@ -7,6 +7,17 @@ export async function POST(req: NextRequest): Promise<any> {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
 
+  // Get current user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Not Authorized, Haven't used ServiceResponseDto
+  if (!user?.email)
+    return NextResponse.json({error: "Unauthorized"}, {
+      status: 403,
+    });
+
   const json = await req.json();
 
   const {
