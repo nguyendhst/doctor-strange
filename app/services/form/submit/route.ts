@@ -19,7 +19,19 @@ export async function POST(req: NextRequest): Promise<any> {
     });
 
   const json = await req.json();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
+  // Not Authorized
+  if (!user?.email)
+    return NextResponse.json({
+      statusCode: 403,
+      data: null,
+    }, {
+      status: 403,
+    });
+  
   const {
     data,
   } = await formSubmission(supabase, json);
