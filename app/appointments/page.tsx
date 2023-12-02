@@ -6,6 +6,7 @@ import { Button, Result } from 'antd';
 import { queryUser } from "../services/user/hooks";
 
 export default function Page() {
+
   const { data } = queryUser();
 
   const {
