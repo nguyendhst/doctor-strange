@@ -1,7 +1,5 @@
 describe("get appointments test", () => {
   it("Test 1: should see appointments", () => {
-    // const email = "khoa.caotrananh@hcmut.edu.vn";
-    // const password = "123456";
     const email = "hoangkimc93@gmail.com";
     const password = "123123";
 

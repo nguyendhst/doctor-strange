@@ -1,15 +1,28 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
+// request: Request
 export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  // Error!
+  
+  // Get current user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Get request data
   const reqbody = await request.json();
 
   // Filter with foreign table -> <table>!inner
   try {
+    if (reqbody.email.toString() != user?.email) {
+      return NextResponse.json({
+        error: "Not authentication!"
+      }, {
+        status: 401
+      })
+    }
     const { data, error } = await supabase
       .from("recommendations")
       .select(
