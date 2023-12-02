@@ -19,3 +19,9 @@ export default async function getAppointmentsDetails({email}: TAppointmentsDetai
   })
 
 }
+
+// export default async function getAppointmentsDetails(): Promise<TResponseMeta<TAppointmentsDetails[]>> {
+//   return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
+//     method: 'GET',
+//   })
+// }
