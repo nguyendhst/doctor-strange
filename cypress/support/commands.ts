@@ -30,7 +30,7 @@ beforeEach(() => {
   cy.intercept("GET", "/services/doctor/by-symptoms?ids=*&search=*").as(
     "doctorBySymptoms"
   );
-  cy.intercept("POST", "/api/appointments").as("getAppointments")
+  cy.intercept("POST", "/api/appointments").as("getAppointments");
 });
 declare global {
   namespace Cypress {
@@ -43,23 +43,22 @@ declare global {
         phoneNumber: string
       ): Chainable<void>;
       fillStep2(note: string): Chainable<void>;
-	  fillStep3(
-		symptoms: string[],
-		appointmentDate: string,
-	  ): Chainable<void>;
+      fillStep3(symptoms: string[], appointmentDate: string): Chainable<void>;
 
-	  refillStep1(
-		name: string,
-		gender: string,
-		birthday: string,
-		phoneNumber: string
-	  ): Chainable<void>;
+      refillStep1(
+        name: string,
+        gender: string,
+        birthday: string,
+        phoneNumber: string
+      ): Chainable<void>;
 
-	  refillStep2(note: string): Chainable<void>;
+      refillStep2(note: string): Chainable<void>;
 
-	  nextStep(): Chainable<void>;
-	  prevStep(): Chainable<void>;
-	  doneStep(): Chainable<void>;
+      nextStep(): Chainable<void>;
+      prevStep(): Chainable<void>;
+      doneStep(): Chainable<void>;
+
+      fillInOneSymptom(symptom: string): Chainable<void>;
 
       step3FindDoctorBySymptom(symptoms: string[]): Chainable<void>;
 
@@ -119,20 +118,26 @@ Cypress.Commands.add("fillStep1", (name, gender, birthday, phoneNumber) => {
   cy.get("button").contains("Next").click();
 });
 
-Cypress.Commands.add("refillStep1", (name, gender: string, birthday, phoneNumber) => {
-	checkCurrentStep(1);
-  
-	name && cy.getAntdInputByLabel("Your Name").clear().type(name);
-  
-	gender && cy.get("div.ant-select-selector").click();
-	gender && cy.get(".ant-select-item-option-content").contains(gender).click();
-  
-	birthday && cy.getAntdInputByLabel("Your Birthday").click().clear().type(birthday);
-  
-	phoneNumber && cy.getAntdInputByLabel("Your Phone Number").clear().type(phoneNumber);
-  
-	cy.get("button").contains("Next").click();
-  });
+Cypress.Commands.add(
+  "refillStep1",
+  (name, gender: string, birthday, phoneNumber) => {
+    checkCurrentStep(1);
+
+    name && cy.getAntdInputByLabel("Your Name").clear().type(name);
+
+    gender && cy.get("div.ant-select-selector").click();
+    gender &&
+      cy.get(".ant-select-item-option-content").contains(gender).click();
+
+    birthday &&
+      cy.getAntdInputByLabel("Your Birthday").click().clear().type(birthday);
+
+    phoneNumber &&
+      cy.getAntdInputByLabel("Your Phone Number").clear().type(phoneNumber);
+
+    cy.get("button").contains("Next").click();
+  }
+);
 
 Cypress.Commands.add("fillStep2", (note) => {
   checkCurrentStep(2);
@@ -142,41 +147,47 @@ Cypress.Commands.add("fillStep2", (note) => {
   cy.get("button").contains("Next").click();
 });
 
+Cypress.Commands.add("fillInOneSymptom", (symptom) => {
+  cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+  // Wait for Debounce to happen and API call
+  cy.wait(500).wait("@searchSymptoms");
+  cy.get(".ant-select-item-option-content").contains(symptom).click();
+});
 Cypress.Commands.add("refillStep2", (note: string) => {
-	checkCurrentStep(2);
-  
-	note && cy.getAntdInputByLabel("Notes").clear().type(note);
-  
-  } );
+  checkCurrentStep(2);
 
+  note && cy.getAntdInputByLabel("Notes").clear().type(note);
+});
 
 Cypress.Commands.add("fillStep3", (symptoms, appointmentDate) => {
   checkCurrentStep(3);
 
   cy.wait("@searchSymptoms");
   symptoms.forEach((symptom) => {
-	cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+    cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
 
-	// Wait for Debounce to happen and API call
-	cy.wait(500).wait("@searchSymptoms");
-	cy.get(".ant-select-item-option-content").contains(symptom).click();
+    // Wait for Debounce to happen and API call
+    cy.wait(500).wait("@searchSymptoms");
+    cy.get(".ant-select-item-option-content").contains(symptom).click();
   });
 
-  cy.getAntdInputByLabel("Choose your Appointment Date").click().type(appointmentDate);
+  cy.getAntdInputByLabel("Choose your Appointment Date")
+    .click()
+    .type(appointmentDate);
 
   cy.getAntdInputByLabel("Doctor Selection").click().wait(500);
   cy.get(".ant-select-item.ant-select-item-option") // Select the doctor elements
-	.filter(":visible")
-	.its("length");
-	
+    .filter(":visible")
+    .its("length");
+
   cy.get(".ant-select-item.ant-select-item-option")
-	  .filter(":visible")
-	  .first()
-	  .click();
+    .filter(":visible")
+    .first()
+    .click();
 
   cy.get("label.ant-radio-wrapper").first().click();
 
-//  cy.get("button").contains("Done").click();
+  //  cy.get("button").contains("Done").click();
 });
 
 Cypress.Commands.add("nextStep", () => {
@@ -198,11 +209,7 @@ Cypress.Commands.add("step3FindDoctorBySymptom", (symptoms) => {
   cy.fillStep2("Hello from Cypress!!");
 
   cy.wait("@searchSymptoms");
-  symptoms.map((symptom) => {
-    cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
-
-    // Wait for Debounce to happen and API call
-    cy.wait(500).wait("@searchSymptoms");
-    cy.get(".ant-select-item-option-content").contains(symptom).click();
+  symptoms.forEach((symptom) => {
+    cy.fillInOneSymptom(symptom);
   });
 });
