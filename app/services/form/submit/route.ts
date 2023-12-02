@@ -14,7 +14,10 @@ export async function POST(req: NextRequest): Promise<any> {
 
   // Not Authorized
   if (!user?.email)
-    return NextResponse.json(new ServiceResponseDto(403, null, "Unauthorized"), {
+    return NextResponse.json(new ServiceResponseDto({
+      statusCode: 403,
+      data: null,
+    }, {
       status: 403,
     });
   
