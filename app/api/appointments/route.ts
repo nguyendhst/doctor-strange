@@ -1,15 +1,25 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
-export async function POST(request: Request) {
+// request: Request
+export async function GET() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  // Error!
-  const reqbody = await request.json();
+  
+  // Get current user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   // Filter with foreign table -> <table>!inner
   try {
+    if (!user) {
+      return NextResponse.json({
+        error: "Not authentication!"
+      }, {
+        status: 400
+      })
+    }
     const { data, error } = await supabase
       .from("recommendations")
       .select(
@@ -24,7 +34,7 @@ export async function POST(request: Request) {
       )
       // .like("users.contact", `%${reqbody.email.toString()}%`);
       .match({
-        "users.contact": reqbody.email.toString()
+        "users.contact": user!.email!.toString()
       })
     if (data) {
       return NextResponse.json({

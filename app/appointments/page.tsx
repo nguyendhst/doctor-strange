@@ -6,13 +6,12 @@ import { Button, Result } from 'antd';
 import { queryUser } from "../services/user/hooks";
 
 export default function Page() {
-  const { data } = queryUser();
 
   const {
     data: res,
     isError,
     isLoading,
-  } = queryAppointmentsDetails(data?.data?.email);
+  } = queryAppointmentsDetails();
 
   return (
     <div className="md:w-1/2 w-full flex flex-col items-center gap-y-5 p-5 text-slate-700">
