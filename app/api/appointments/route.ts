@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       return NextResponse.json({
         error: "Not authentication!"
       }, {
-        status: 401
+        status: 403
       })
     }
     const { data, error } = await supabase
