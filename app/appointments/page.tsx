@@ -7,11 +7,13 @@ import { queryUser } from "../services/user/hooks";
 
 export default function Page() {
 
+  const { data } = queryUser();
+
   const {
     data: res,
     isError,
     isLoading,
-  } = queryAppointmentsDetails();
+  } = queryAppointmentsDetails(data?.data?.email);
 
   return (
     <div className="md:w-1/2 w-full flex flex-col items-center gap-y-5 p-5 text-slate-700">

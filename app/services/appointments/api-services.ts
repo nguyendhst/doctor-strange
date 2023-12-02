@@ -5,24 +5,23 @@ import { User } from '@supabase/supabase-js'
 import request from 'umi-request'
 import { API_QUERY_APPOINTMENTS_DETAILS } from './cache-keys'
 
-// OLD
-// export type TAppointmentsDetailsProps = {
-//   email?: string,
-// }
-
-// export default async function getAppointmentsDetails({email}: TAppointmentsDetailsProps): Promise<TResponseMeta<TAppointmentsDetails[]>> {
-//   return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
-//     method: 'POST',
-//     // cache: "no-cache",
-//     data: {
-//       email
-//     }
-//   })
-
-// }
-
-export default async function getAppointmentsDetails(): Promise<TResponseMeta<TAppointmentsDetails[]>> {
-  return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
-    method: 'GET',
-  })
+export type TAppointmentsDetailsProps = {
+  email?: string,
 }
+
+export default async function getAppointmentsDetails({email}: TAppointmentsDetailsProps): Promise<TResponseMeta<TAppointmentsDetails[]>> {
+  return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
+    method: 'POST',
+    // cache: "no-cache",
+    data: {
+      email
+    }
+  })
+
+}
+
+// export default async function getAppointmentsDetails(): Promise<TResponseMeta<TAppointmentsDetails[]>> {
+//   return request<TResponseMeta<TAppointmentsDetails[]>>(API_QUERY_APPOINTMENTS_DETAILS, {
+//     method: 'GET',
+//   })
+// }
