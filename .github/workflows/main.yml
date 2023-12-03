@@ -49,3 +49,4 @@ jobs:
 
         with:
           start: npm run start
+          install-command: npm i cypress@13.6.0
