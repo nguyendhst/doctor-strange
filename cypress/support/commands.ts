@@ -70,6 +70,7 @@ declare global {
         subject: string,
         options?: Partial<TypeOptions>
       ): Chainable<Element>;
+      printLog(msg: any): Chainable<Element>;
       // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
     }
   }
@@ -212,4 +213,8 @@ Cypress.Commands.add("step3FindDoctorBySymptom", (symptoms) => {
   symptoms.forEach((symptom) => {
     cy.fillInOneSymptom(symptom);
   });
+});
+
+Cypress.Commands.add("printLog", (msg) => { 
+  cy.task("log", msg); 
 });

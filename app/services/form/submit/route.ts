@@ -1,11 +1,12 @@
-import { createClient } from '@/utils/supabase/server'
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
-import { formSubmission } from '@/services/form/form.service'
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+import { formSubmission } from "@/services/form/form.service";
+import { ServiceResponseDto } from "@/services/shared/dto/service-response.dto";
 
 export async function POST(req: NextRequest): Promise<any> {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
   const json = await req.json();
   const {
@@ -14,27 +15,12 @@ export async function POST(req: NextRequest): Promise<any> {
 
   // Not Authorized
   if (!user?.email)
-    return NextResponse.json({
-      statusCode: 403,
-      data: null,
-    }, {
-      status: 403,
-    });
-  
-  const {
-    data,
-  } = await formSubmission(supabase, json);
+    return NextResponse.json(
+      new ServiceResponseDto(403, null, "Unauthorized"),
+      {
+        status: 403,
+      }
+    );
 
-  return data   
-  ? 
-  NextResponse.json({
-    statusCode: 201,
-    data: data,
-  })
-  :NextResponse.json( 
-  {
-    statusCode: 403,
-    data: data,
-  });
-
+  return NextResponse.json(await formSubmission(supabase, json));
 }
