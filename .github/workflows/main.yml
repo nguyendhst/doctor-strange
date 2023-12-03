@@ -8,10 +8,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
+      - name: Installing dependencies
         run: |
           npm ci
+
+      - name: Linting
+        run: |
           npm run build
-      - name: Create workspace
+      - name: Creating workspace
         uses: actions/upload-artifact@v3
         with:
           name: build-output
