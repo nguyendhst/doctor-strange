@@ -43,7 +43,7 @@ export const getDoctorsBySymptoms = async (
 
 export const getDoctorSchedule = async (
   id: string | null,
-  date: string | Date | null,
+  date: number | Date | null,
 ): Promise<TResponseMeta<any | null>> => {
   return request<TResponseMeta<any | null>>(API_GET_DOCTORS_SCHEDULE, {
     method: "GET",

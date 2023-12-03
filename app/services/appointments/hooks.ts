@@ -10,3 +10,7 @@ export const queryAppointmentsDetails = (email: string|undefined) => {
     enabled: !!email,
   })
 }
+
+// export const queryAppointmentsDetails = () => {
+//   return useQuery([API_QUERY_APPOINTMENTS_DETAILS], () => getAppointmentsDetails(), {  })
+// }
