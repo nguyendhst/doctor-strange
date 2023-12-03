@@ -34,14 +34,18 @@ jobs:
         with:
           name: .next
           path: .next
-      - name: Show repo
+
+      - name: Show repo structure
         run: |
-          ls -R
+          ls -lad
+          
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SERVICE_ROLE_KEY: ${{ secrets.SERVICE_ROLE_KEY}}
+
         with:
           start: npm run start
