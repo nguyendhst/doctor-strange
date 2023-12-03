@@ -3,13 +3,29 @@ name: E2E test
 on: push
 
 jobs:
-  cypress-run:
+  linting-on-build:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+        run: |
+          npm ci
+          npm run build
+      - name: Create workspace
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: .
+
+  cypress-e2e-testing
+    needs: linting-on-build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download build output
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
@@ -17,5 +33,4 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         with:
-          build: npm run build
           start: npm run start
