@@ -61,6 +61,7 @@ declare global {
       fillInOneSymptom(symptom: string): Chainable<void>;
 
       step3FindDoctorBySymptom(symptoms: string[]): Chainable<void>;
+      stepSearchForSymptom(symptom: string): Chainable<void>;
 
       getInputByLabel(label: string): Chainable<JQuery<HTMLInputElement>>;
       getAntdInputByLabel(label: string): Chainable<JQuery<HTMLInputElement>>;
@@ -215,6 +216,18 @@ Cypress.Commands.add("step3FindDoctorBySymptom", (symptoms) => {
   });
 });
 
+Cypress.Commands.add("stepSearchForSymptom", (symptom: string) => {
+  cy.visit("/");
+  cy.login("hoangkimc93@gmail.com", "123123");
+  cy.fillStep1("Hoàng Kim Cương", "Male", "24/12/2002", "0992377733");
+  cy.fillStep2("Hello from Cypress!!");
+
+  cy.wait("@searchSymptoms");
+    if(symptom!=""){
+      cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+      cy.wait(500).wait("@searchSymptoms");
+    }
+});
 Cypress.Commands.add("printLog", (msg) => { 
   cy.task("log", msg); 
 });
