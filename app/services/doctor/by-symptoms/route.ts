@@ -10,7 +10,6 @@ export async function GET(req: NextRequest): Promise<any> {
   const {searchParams} = new URL(req.url);
   const symptomIds = searchParams.getAll("ids");
   const textSearch = searchParams.get("search");
-
   if(!symptomIds || symptomIds.length === 0){
     const response = await getAllDoctor(supabase, textSearch);
     return NextResponse.json(response)

@@ -25,6 +25,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
+
 beforeEach(() => {
   cy.intercept("GET", "/services/symptoms?search=*").as("searchSymptoms");
   cy.intercept("GET", "/services/doctor/by-symptoms?ids=*&search=*").as(
@@ -71,6 +72,7 @@ declare global {
         subject: string,
         options?: Partial<TypeOptions>
       ): Chainable<Element>;
+
       printLog(msg: any): Chainable<Element>;
       // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
     }
