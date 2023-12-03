@@ -32,3 +32,38 @@ jobs:
     with: 
       spec: cypress/e2e/auth
     secrets: inherit
+
+  cypress-e2e-testing--find-doctor-by-symptoms:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/find-doctor-by-symptoms
+    secrets: inherit
+
+  cypress-e2e-testing--form-submit:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/form-submit
+    secrets: inherit
+    
+  cypress-e2e-testing--get-appointment:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/get-appointment
+    secrets: inherit
+
+  cypress-e2e-testing--get-free-schedule:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/get-free-schedule
+    secrets: inherit
+
+  cypress-e2e-testing--search-symptoms:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/search-symptoms
+    secrets: inherit
