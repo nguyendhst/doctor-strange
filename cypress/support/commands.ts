@@ -71,6 +71,7 @@ declare global {
         subject: string,
         options?: Partial<TypeOptions>
       ): Chainable<Element>;
+      printLog(msg: any): Chainable<Element>;
       // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
     }
   }
@@ -226,4 +227,8 @@ Cypress.Commands.add("stepSearchForSymptom", (symptom: string) => {
       cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
       cy.wait(500).wait("@searchSymptoms");
     }
+});
+
+Cypress.Commands.add("printLog", (msg) => { 
+  cy.task("log", msg); 
 });
