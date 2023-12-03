@@ -3,19 +3,67 @@ name: E2E test
 on: push
 
 jobs:
-  cypress-run:
+  linting-on-build:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      - uses: actions/setup-node@v4
         with:
-          build: npm run build
-          start: npm run start
+          node-version: 18
+          cache: 'npm'
+      
+      - name: Installing dependencies
+        run: |
+          npm ci
+
+      - name: Linting
+        run: |
+          npm run build
+      - name: Creating workspace
+        uses: actions/upload-artifact@v3
+        with:
+          name: .next
+          path: ./.next
+
+  cypress-e2e-testing--auth:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/auth
+    secrets: inherit
+
+  cypress-e2e-testing--find-doctor-by-symptoms:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/find-doctor-by-symptoms
+    secrets: inherit
+
+  cypress-e2e-testing--form-submit:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/form-submit
+    secrets: inherit
+    
+  cypress-e2e-testing--get-appointment:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/get-appointment
+    secrets: inherit
+
+  cypress-e2e-testing--get-free-schedule:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/get-free-schedule
+    secrets: inherit
+
+  cypress-e2e-testing--search-symptoms:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with: 
+      spec: cypress/e2e/search-symptoms
+    secrets: inherit

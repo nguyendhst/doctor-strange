@@ -9,8 +9,8 @@ export async function GET(req: NextRequest): Promise<any> {
 
   const {searchParams} = new URL(req.url);
   const doctorId = searchParams.get("id");
-  const date = searchParams.get("date");
+  const date = Number(searchParams.get("date"));
 
-  const response = await getFreeSchedule(supabase, doctorId!, date!);
+  const response = await getFreeSchedule(supabase, doctorId!, date);
   return NextResponse.json(response);
 }
