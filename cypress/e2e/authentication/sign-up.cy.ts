@@ -1,4 +1,7 @@
-import { generateEmail, generatePassword } from "../../utils/accountGenerate";
+import {
+  generateEmail,
+  generatePassword,
+} from "../../../utils/accountGenerate";
 
 describe("sign up flow", () => {
   const email = generateEmail();
