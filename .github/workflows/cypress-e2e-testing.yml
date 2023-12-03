@@ -16,7 +16,6 @@ on:
 
 jobs:
   cypress-e2e-testing:
-    needs: linting-on-build
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
