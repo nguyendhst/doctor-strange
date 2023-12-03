@@ -8,6 +8,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
       
       - name: Installing dependencies
         run: |
@@ -28,6 +32,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
 
       - name: Download build output
         uses: actions/download-artifact@v3
@@ -38,6 +46,9 @@ jobs:
       - name: Show repo structure
         run: |
           ls -lad
+      
+      - name: Install Cypress
+        run: npm i cypress@13.6.0
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -49,4 +60,4 @@ jobs:
 
         with:
           start: npm run start
-          install-command: npm i cypress@13.6.0
+          install: false
