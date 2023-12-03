@@ -1,4 +1,10 @@
 /// <reference types="cypress" />
+
+import DoctorDetails from "@/components/DoctorDetails";
+import { useDoctorDetails } from "@/components/DoctorDetails/hooks/useDoctorDetails";
+import { getDoctorById } from "@/services/doctor/doctor.service";
+import { data } from "cypress/types/jquery";
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -44,6 +50,7 @@ declare global {
       fillStep2(note: string): Chainable<void>;
 
       step3FindDoctorBySymptom(symptoms: string[]): Chainable<void>;
+      showDoctorDetail(symptoms: string[], name: string): Chainable<void>;
       stepSearchForSymptom(symptom: string): Chainable<void>;
 
       getInputByLabel(label: string): Chainable<JQuery<HTMLInputElement>>;
@@ -137,3 +144,23 @@ Cypress.Commands.add("stepSearchForSymptom", (symptom: string) => {
       cy.wait(500).wait("@searchSymptoms");
     }
 });
+
+Cypress.Commands.add("showDoctorDetail", (symptoms, name) => {
+  cy.visit("/");
+  cy.login("hoangkimc93@gmail.com", "123123");
+  cy.fillStep1("Hoàng Kim Cương", "Male", "24/12/2002", "0992377733");
+  cy.fillStep2("Hello from Cypress!!");
+
+  cy.wait("@searchSymptoms");
+  symptoms.map((symptom) => {
+    cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+
+    // Wait for Debounce to happen and API call
+    cy.wait(500).wait("@searchSymptoms");
+    cy.get(".ant-select-item-option-content").contains(symptom).click();
+  });
+
+  cy.getAntdInputByLabel("Doctor Selection").click();
+  cy.get(".ant-select-item-option").contains(name).click();
+});
+
