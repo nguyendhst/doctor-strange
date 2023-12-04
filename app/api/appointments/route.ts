@@ -14,15 +14,22 @@ export async function POST(request: Request) {
   // Get request data
   const reqbody = await request.json();
 
-  // Filter with foreign table -> <table>!inner
+  
   try {
+    // !!!!!!!!!! Error here !!!!!!!!!!
+    // if (reqbody.email.toString() != user?.email) {
+    //   return NextResponse.json({
+    //     error: "Not authentication!"
+    //   }, {
+    //     status: 403
+    //   })
+    // }
     if (reqbody.email.toString() != user?.email) {
       return NextResponse.json({
         error: "Not authentication!"
-      }, {
-        status: 403
       })
     }
+    // Filter with foreign table -> <table>!inner
     const { data, error } = await supabase
       .from("recommendations")
       .select(
