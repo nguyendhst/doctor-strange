@@ -1,0 +1,1 @@
+export const API_QUERY_USER = '/services/user/details';

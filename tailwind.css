@@ -8,10 +8,13 @@
 @layer base {}
 
 @layer components {
+  .ant-btn-primary{
+    @apply bg-blue-500;
+  }
   .ant-menu-custom {
     @apply grow justify-center;
     .ant-menu-item {
-      @apply flex justify-center items-center;
+      @apply flex justify-center font-bold items-center w-[200px] text-base;
     }
     .ant-menu-submenu {
       @apply flex justify-center items-center;

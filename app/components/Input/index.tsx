@@ -1,9 +1,8 @@
+import ValidateError from '@/components/Input/ValidateError';
 import { Input } from 'antd';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
 import { Controller } from 'react-hook-form';
-
-import ValidateError from '../ValidateError';
 
 const InputText: React.FC<TPropsFormInput> = ({
   name,

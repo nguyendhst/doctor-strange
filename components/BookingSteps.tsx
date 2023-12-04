@@ -1,64 +1,46 @@
-import { Button, Steps, message, theme } from 'antd'
-import React, { ReactNode, useState } from 'react'
+"use client"
+import { Col, Row, StepProps, Steps } from 'antd'
+import React from 'react'
 
-const steps = [
-    {
-    title: 'Step 1',
-    description: 'Thông tin cá nhân',
-    },
-    {
-    title: 'Step 2',
-    description: 'Triệu chứng',
-    },
-    {
-    title: 'Step 3',
-    description: 'Hẹn lịch khám',
-    },
-];
-  
+export type TStepsConfig = {
+    steps: StepProps[],
+    current: number,
+    leftContent: React.ReactNode,
+    rightContent: React.ReactNode,
+    children: React.ReactNode,
+}
 
-const BookingSteps: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [current, setCurrent] = useState(0);
+const BookingSteps: React.FC<TStepsConfig> = ({ steps, current, leftContent, rightContent, children }) => {
 
-    const next = () => {
-        setCurrent(current + 1);
-    };
-
-    const prev = () => {
-        setCurrent(current - 1);
-    };
-
-    const items = steps.map((item) => ({ 
-        key: item.title, 
+    const items = steps.map((item) => ({
+        key: item.title,
         title: (
             <span style={{ color: '#1677ff' }}>
-              {item.title}
+                {item.title}
             </span>
-          ), 
-        description: item.description 
+        ),
+        description: item.description
     }));
 
     return (
         <>
-            <Steps current={current} items={items}/>
-            <div>{children}</div>
-            <div style={{ marginTop: 24 }}>
-                {current < steps.length - 1 && (
-                <Button type="default" onClick={() => next()}>
-                    Next
-                </Button>
-                )}
-                {current === steps.length - 1 && (
-                <Button type="default" onClick={() => message.success('Processing complete!')}>
-                    Done
-                </Button>
-                )}
-                {current > 0 && (
-                <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                    Previous
-                </Button>
-                )}
-            </div>
+            <Row gutter={6}>
+
+                <Col span={4} className='flex flex-row justify-start'>
+
+                    {leftContent}
+                </Col>
+
+                <Col span={16}>
+                    <Steps current={current} items={items} labelPlacement="vertical" />
+                </Col>
+
+                <Col span={4} className='flex flex-row justify-end'>
+                    {rightContent}
+                </Col>
+
+            </Row>
+            <div className='pt-10'>{children}</div>
         </>
     )
 }

@@ -1,0 +1,1 @@
+export const API_FORM_SUBMISSION = '/services/form/submit';
