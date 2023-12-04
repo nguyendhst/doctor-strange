@@ -25,6 +25,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
+
 beforeEach(() => {
   cy.intercept("GET", "/services/symptoms?search=*").as("searchSymptoms");
   cy.intercept("GET", "/services/doctor/by-symptoms?ids=*&search=*").as(
@@ -36,6 +37,8 @@ declare global {
   namespace Cypress {
     interface Chainable {
       login(email: string, password: string): Chainable<void>;
+      signup(email: string, password: string): Chainable<void>;
+      logout(email: string, password: string): Chainable<void>;
       fillStep1(
         name: string,
         gender: string,
@@ -71,6 +74,7 @@ declare global {
         subject: string,
         options?: Partial<TypeOptions>
       ): Chainable<Element>;
+
       printLog(msg: any): Chainable<Element>;
       // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
     }
@@ -104,6 +108,20 @@ Cypress.Commands.add("login", (username, password) => {
   cy.getInputByLabel("Password").type(password);
   cy.get("button").contains("Sign In").click();
 });
+
+//////////////////// LOGIN - SIGNUP
+Cypress.Commands.add("signup", (username, password) => {
+  cy.visit("/signup");
+  cy.contains("Hi there").should("be.visible");
+  cy.getInputByLabel("Email").type(username);
+  cy.getInputByLabel("Password").type(password);
+  cy.getInputByLabel("Confirm Password").type(password);
+  cy.get("button").contains("Sign Up").click();
+});
+Cypress.Commands.add("logout", () => {
+  cy.contains("button", "Logout").click();
+});
+////////////////////
 
 Cypress.Commands.add("fillStep1", (name, gender, birthday, phoneNumber) => {
   checkCurrentStep(1);
