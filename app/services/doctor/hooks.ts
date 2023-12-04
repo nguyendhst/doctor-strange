@@ -33,7 +33,7 @@ export const queryDoctorsBySymtoms = (
   ids: string[] | null,
   search: string | null
 ) => {
-  return useQuery([API_GET_DOCTORS_BY_SYMPTOMS], () =>
+  return useQuery([API_GET_DOCTORS_BY_SYMPTOMS, ids, search], () =>
     getDoctorsBySymptoms(ids, search)
   );
 };

@@ -70,14 +70,24 @@ export const useSearchDoctors = (control?: Control) => {
   const symptomsIds = useWatch({ control, name: FORM_KEY["SYMP"] });
   const selectedDoctor = useWatch({control, name: FORM_KEY["DOCTOR"]})
   
-  const [searchString, setSearchString] = useState<string>('');
+  const [searchString, setSearchStr] = useState<string>('');
 
   const { data, isLoading, isError, refetch } =
     queryDoctorsBySymtoms(symptomsIds, searchString);
 
-  useEffect(() => {
-    refetch();
-  }, [symptomsIds, searchString]);
+
+  const {
+    run: setSearchString,
+    flush,
+    cancel,
+  } = useDebounceFn(
+    async (search) => {
+      setSearchStr(search)
+    },
+    {
+      wait: 500,
+    }
+  );
 
   return {
     doctorsList: data?.data,

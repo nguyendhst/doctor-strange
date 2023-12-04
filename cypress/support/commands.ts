@@ -28,7 +28,7 @@
 
 beforeEach(() => {
   cy.intercept("GET", "/services/symptoms?search=*").as("searchSymptoms");
-  cy.intercept("GET", "/services/doctor/by-symptoms?ids=*&search=*").as(
+  cy.intercept("GET", "/services/doctor/by-symptoms?+(ids=*&|)search=*").as(
     "doctorBySymptoms"
   );
   cy.intercept("POST", "/api/appointments").as("getAppointments");
@@ -181,7 +181,6 @@ Cypress.Commands.add("refillStep2", (note: string) => {
 
 Cypress.Commands.add("fillStep3", (symptoms, appointmentDate) => {
   checkCurrentStep(3);
-
   cy.wait("@searchSymptoms");
   symptoms.forEach((symptom) => {
     cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
@@ -228,9 +227,12 @@ Cypress.Commands.add("step3FindDoctorBySymptom", (symptoms) => {
   cy.fillStep1("Hoàng Kim Cương", "Male", "24/12/2002", "0992377733");
   cy.fillStep2("Hello from Cypress!!");
 
+  checkCurrentStep(3);
+  cy.wait("@doctorBySymptoms");
   cy.wait("@searchSymptoms");
   symptoms.forEach((symptom) => {
     cy.fillInOneSymptom(symptom);
+    cy.wait("@doctorBySymptoms");
   });
 });
 
@@ -241,11 +243,11 @@ Cypress.Commands.add("stepSearchForSymptom", (symptom: string) => {
   cy.fillStep2("Hello from Cypress!!");
 
   cy.wait("@searchSymptoms");
-    if(symptom!=""){
-      cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
-      cy.wait(500).wait("@searchSymptoms");
-    }
+  if (symptom != "") {
+    cy.getAntdInputByLabel("Choose some symptoms").click().type(symptom);
+    cy.wait(500).wait("@searchSymptoms");
+  }
 });
-Cypress.Commands.add("printLog", (msg) => { 
-  cy.task("log", msg); 
+Cypress.Commands.add("printLog", (msg) => {
+  cy.task("log", msg);
 });
