@@ -161,6 +161,6 @@ Cypress.Commands.add("showDoctorDetail", (symptoms, name) => {
   });
 
   cy.getAntdInputByLabel("Doctor Selection").click();
-  cy.get(".ant-select-item-option").contains(name).click();
+  cy.wait(500).get(".ant-select-item-option").contains(name).click();
 });
 

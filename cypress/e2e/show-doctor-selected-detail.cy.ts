@@ -15,12 +15,12 @@ describe('Doctor Detail API', () => {
 
             // Kiểm tra từng trường thông tin theo mẫu dữ liệu
             expect(doctorData).to.include({
-            id: 2,
-            name: "Bob Williams",
-            specialization: "Orthopedist",
-            contact: "bob.williams@hospital.com",
-            rating: 4.7,
-            department: "Trung Vuong Hospital"
+                id: 2,
+                name: "Bob Williams",
+                specialization: "Orthopedist",
+                contact: "bob.williams@hospital.com",
+                rating: 4.7,
+                department: "Trung Vuong Hospital"
             });
 
             // Lấy tên bác sĩ từ dữ liệu API
