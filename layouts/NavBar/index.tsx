@@ -4,7 +4,7 @@ import { ConfigProvider } from "antd";
 import AuthButton from "@/components/AuthButton";
 import { Image, Menu, MenuProps } from "antd";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useLayoutEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { queryUser } from "@/app/services/user/hooks";
 
@@ -30,13 +30,14 @@ const NavBar: React.FC<TNavBar> = ({ children }) => {
   const { data, isLoading } = queryUser();
   const user = data?.data;
 
-
-
   // const checkLoggedIn = async () => {}
 
   useEffect(() => {
-    if (!user && !isLoading && route[0] != '/signup') navigator.push("/login");
-  }, [data, route]);
+    if (!user && !isLoading)
+      route[0] !== "/signup" &&
+        route[0] !== "/login" &&
+        navigator.push("/login");
+  }, [data, route, isLoading]);
 
   // console.log(route)
   return (

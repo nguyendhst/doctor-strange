@@ -21,9 +21,7 @@ export default function Login() {
             Email
           </label>
           <input
-		    id="email"
             className="border-b-2 outline-0"
-			type="email"
             name="email"
             placeholder="you@example.com"
             required
@@ -35,7 +33,6 @@ export default function Login() {
             Password
           </label>
           <input
-		    id="password"
             className="border-b-2 outline-0"
             type="password"
             name="password"
@@ -43,12 +40,15 @@ export default function Login() {
             required
           />
         </div>
-        <button className="bg-blue-500 text-white rounded-md px-4 py-2 text-foreground text-lg font-bold">
+        <button
+          formAction="/auth/sign-in"
+          className="bg-blue-500 text-white rounded-md px-4 py-2  text-lg font-bold"
+        >
           Sign In
         </button>
         <button
           // formAction="/auth/sign-up"
-          className="border-none px-4 text-lg text-foreground mb-4 text-neutral-800"
+          className="border-none px-4 text-lg text-foreground mb-4 "
         >
           <Link href="/signup">Sign Up</Link>
         </button>

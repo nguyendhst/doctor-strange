@@ -3,9 +3,8 @@ import { TAppointmentFormFields } from "@/app/book-appointment/hooks/useAppointm
 import { FORM_KEY } from "@/app/const/form";
 import { useFormSubmission } from "@/app/services/form/hooks";
 import { StepProps, notification } from "antd";
-import { redirect } from "next/navigation";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { UseFormHandleSubmit, UseFormTrigger } from "react-hook-form";
+import { Dispatch, SetStateAction, useCallback } from "react";
+import { UseFormTrigger } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 const useSteps = (
