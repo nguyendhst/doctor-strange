@@ -7,10 +7,4 @@ describe("log out flow", () => {
     cy.logout(email, password);
     cy.contains("button", "Login").should("exist");
   });
-  it("should log out successfully", () => {
-    cy.visit("/");
-    cy.login(email, password);
-    cy.logout(email, password);
-    cy.contains("button", "Login").should("not.have.text", "Logout");
-  });
 });

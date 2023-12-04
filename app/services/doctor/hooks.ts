@@ -11,10 +11,10 @@ import {
   API_GET_DOCTORS_SCHEDULE,
   API_GET_DOCTOR_BY_ID,
 } from "@/app/services/doctor/cache-keys";
-import urlcat from "urlcat";
 
 type TMutate = {
-  id: string | any | null;date: string | any | Date | null;
+  id: string | null;
+  date: number | Date | null;
 }
 
 export const queryDoctorByID = (id?: number | string) => {
