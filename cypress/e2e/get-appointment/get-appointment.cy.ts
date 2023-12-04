@@ -112,4 +112,57 @@ describe("get appointments test", () => {
     cy.contains("Login").click();
     cy.contains("Welcome back").should("be.visible");
   });
+  it('Test 4: should throw status code 403 due not to authorization', () => {
+    const email = "hoangkimc93@gmail.com";
+    const password = "123123";
+
+    // Go to Home page
+    cy.visit("/");
+    cy.login(email, password);
+    cy.wait(1000);
+
+    // Test: Login successful
+    cy.contains(`Hey, ${email}`).should("be.visible");
+    cy.contains("Logout").should("be.visible");
+    cy.contains("My Appointments").click();
+    cy.wait(1000);
+
+    cy.request({
+      method: 'POST',
+      url: '/api/appointments',
+      body: {
+        email: "khoa.caotrananh@hcmut.edu.vn",
+      },
+      failOnStatusCode: false, // Allows the test to continue even if the request fails
+    }).then((response) => {
+      expect(response.status).to.equal(403);
+    });
+  });
+  it('Test 5: should return status code 200', () => {
+    const email = "hoangkimc93@gmail.com";
+    const password = "123123";
+
+    // Go to Home page
+    cy.visit("/");
+    cy.login(email, password);
+    cy.wait(1000);
+
+    // Test: Login successful
+    cy.contains(`Hey, ${email}`).should("be.visible");
+    cy.contains("Logout").should("be.visible");
+    cy.contains("My Appointments").click();
+    cy.wait(1000);
+
+    cy.request({
+      method: 'POST',
+      url: '/api/appointments',
+      body: {
+        email: "hoangkimc93@gmail.com",
+      },
+      failOnStatusCode: false, // Allows the test to continue even if the request fails
+    }).then((response) => {
+      expect(response.status).to.equal(200);
+      expect(response.body.data).be.an("array").and.not.to.be.empty
+    });
+  });
 });

@@ -17,7 +17,6 @@ import { useSchedule } from "@/components/FormSteps/BookingDate/hooks/useSchedul
 const { Item } = Form;
 
 const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
-
   const { searchDepartments, loadingDepartments, departments } =
     useSearchDepartments();
 
@@ -131,6 +130,7 @@ const BookingDate: React.FC<TFormControl> = ({ control, error }) => {
                   loading={loadingDoctors}
                   options={doctorsList}
                   filterOption={false}
+                  showSearch
                   notFoundContent={
                     loadingDoctors ? (
                       <Spin className="h-full w-full m-auto" />
