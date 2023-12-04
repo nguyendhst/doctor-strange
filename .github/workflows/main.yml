@@ -61,6 +61,13 @@ jobs:
       spec: cypress/e2e/get-free-schedule
     secrets: inherit
 
+  cypress-e2e-testing--get-selected-doctor-detail:
+    needs: linting-on-build
+    uses: ./.github/workflows/cypress-e2e-testing.yml
+    with:
+      spec: cypress/e2e/get-selected-doctor-detail
+    secrets: inherit
+
   cypress-e2e-testing--search-symptoms:
     needs: linting-on-build
     uses: ./.github/workflows/cypress-e2e-testing.yml

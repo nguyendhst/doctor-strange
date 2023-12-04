@@ -19,5 +19,5 @@ export async function GET(req: NextRequest): Promise<any> {
   }
 
   const response = await getDoctorById(supabase, parseInt(doctorId));
-  return NextResponse.json(response);
+  return NextResponse.json(response, {status: response.statusCode});
 }
